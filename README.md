@@ -179,7 +179,7 @@ Label-Lens-AI/
 
 ## 👥 Contributors & SIH 2026 Team
 
-- **Project Lead & Developer:** Alok Kumar ([@AlokXCreate](https://github.com/AlokXCreate))
+- **Project Lead & Developer:** Alok ([@AlokXCreate](https://github.com/AlokXCreate))
 - **Hackathon:** Smart India Hackathon 2026 (SIH 2026)
 - **Problem Statement ID:** 26034 (MoCAF&PD)
 
