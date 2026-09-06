@@ -7,6 +7,9 @@ on:
       - master
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-apk:
     runs-on: ubuntu-latest
@@ -17,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Setup Java JDK
@@ -25,6 +28,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '17'
+          cache: 'gradle'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
@@ -46,3 +50,19 @@ jobs:
         with:
           name: Label-Lens-AI-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publish GitHub Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "Label Lens AI v1.0.0 (Official APK Release)"
+          body: |
+            ### 🔍 Label Lens AI v1.0.0
+            **Smart India Hackathon 2026 (Problem Statement 26034)**
+            *Department of Consumer Affairs, MoCAF&PD, Government of India*
+
+            - 📱 **Direct APK Download:** Download `app-debug.apk` attached below.
+            - 🌐 **Live Web Application:** [https://alokxcreate.github.io/Label-Lens-AI/](https://alokxcreate.github.io/Label-Lens-AI/)
+          files: android/app/build/outputs/apk/debug/app-debug.apk
+        continue-on-error: true
