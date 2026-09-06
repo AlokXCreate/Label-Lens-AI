@@ -1,4 +1,4 @@
-# 🔍 Label Lens AI (लेवल लेंस एआई)
+# 🔍 Label Lens AI 
 ### **Statutory Legal Metrology & Food Safety Compliance Engine**
 **Smart India Hackathon (SIH 2026) | Problem Statement: 26034**  
 *Department of Consumer Affairs, Ministry of Consumer Affairs, Food & Public Distribution (MoCAF&PD), Government of India*
