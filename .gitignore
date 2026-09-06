@@ -47,3 +47,5 @@ android/app/build/
 android/captures/
 android/.idea/
 android/local.properties
+apk/
+
