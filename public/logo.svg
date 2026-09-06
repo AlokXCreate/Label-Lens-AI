@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="logoBgGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E1B4B" />
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4338CA" />
+      <stop offset="50%" stop-color="#3730A3" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="tricolorRibbon" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF9933" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#138808" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="100" height="100" rx="24" fill="url(#logoBgGrad)" />
+
+  <!-- Protective Outer Shield -->
+  <path
+    d="M50 12 L78 22 C78 52 50 82 50 82 C50 82 22 52 22 22 Z"
+    fill="url(#shieldGrad)"
+    stroke="#FFFFFF"
+    stroke-width="2.5"
+    stroke-linejoin="round"
+  />
+
+  <!-- Scanner Reticle Corner Focus Brackets -->
+  <path d="M30 32 H38 M30 32 V40" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M70 32 H62 M70 32 V40" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M30 62 H38 M30 62 V54" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M70 62 H62 M70 62 V54" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Scales of Justice Beam -->
+  <path d="M38 42 H62" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
+  <path d="M50 36 V48" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
+  <path d="M36 43 L33 50 H43 L40 43 Z" fill="#F8FAFC" opacity="0.95" />
+  <path d="M64 43 L61 50 H71 L68 43 Z" fill="#F8FAFC" opacity="0.95" />
+
+  <!-- Verified Checkmark Badge -->
+  <circle cx="50" cy="58" r="11" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
+  <path
+    d="M45 58 L48.5 61.5 L55 54.5"
+    stroke="#FFFFFF"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Subtle Indian Tricolor Ribbon -->
+  <path d="M38 74 H62" stroke="url(#tricolorRibbon)" stroke-width="2.5" stroke-linecap="round" />
+</svg>

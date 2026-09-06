@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Label Lens AI</string>
+    <string name="title_activity_main">Label Lens AI</string>
+    <string name="package_name">gov.in.doca.labellens</string>
+    <string name="custom_url_scheme">gov.in.doca.labellens</string>
+</resources>

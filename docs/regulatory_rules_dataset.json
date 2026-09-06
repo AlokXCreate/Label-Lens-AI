@@ -1,0 +1,248 @@
+{
+  "system_metadata": {
+    "project": "Automated Regulatory Compliance Verification System for Packaged Commodities",
+    "version": "2.0.0",
+    "governing_statutes": [
+      "The Legal Metrology Act, 2009 (Act No. 1 of 2010)",
+      "The Legal Metrology (Packaged Commodities) Rules, 2011 (as amended up to 2026)",
+      "The Food Safety and Standards Act, 2006 (Act No. 34 of 2006)",
+      "Food Safety and Standards (Labelling and Display) Regulations, 2020",
+      "Food Safety and Standards (Packaging) Regulations, 2018",
+      "Food Safety and Standards (Food Products Standards and Food Additives) Regulations, 2011",
+      "Food Safety and Standards (Contaminants, Toxins and Residues) Regulations, 2011",
+      "Food Safety and Standards (Advertising and Claims) Regulations, 2018",
+      "Food Safety and Standards (Prohibition and Restrictions on Sales) Regulations, 2011",
+      "Maharashtra Legal Metrology (Enforcement) Rules, 2011",
+      "Maharashtra Food and Drug Administration (FDA) Directives"
+    ],
+    "last_updated": "2026-09-06"
+  },
+  "pcr_recent_amendments": {
+    "amendments_2025": [
+      {
+        "notification": "PCR Amendment Rules, 2025 (October 2025)",
+        "subject": "Medical Devices Harmonization",
+        "description": "Aligns PCR with Medical Devices Rules, 2017. Labelling dimensions and font sizes under MDR 2017 take precedence. Declarations exempted from front PDP if compliant with MDR outer pack rules."
+      },
+      {
+        "notification": "PCR Second Amendment Rules, 2025 (December 2025, effective Feb 1, 2026)",
+        "subject": "Pan Masala Small Pack Exemption Removal",
+        "description": "Removes 10g/10cm3 exemption. Mandatory Retail Sale Price (RSP), Net Qty, and all statutory declarations on all pan masala packs regardless of weight."
+      }
+    ],
+    "amendments_2026": [
+      {
+        "notification": "PCR Amendment Rules, 2026 (February 2026, effective July 1, 2026)",
+        "subject": "E-Commerce Searchable Country of Origin Filter",
+        "clause": "Rule 6(10A)",
+        "description": "Mandates digital e-commerce marketplaces to provide a searchable and sortable filter based on Country of Origin for all imported products."
+      },
+      {
+        "notification": "PCR Third Amendment Rules, 2026 (May 2026)",
+        "subject": "Importer Declarations at AEO Bonded Warehouses",
+        "description": "Permits AEO Tier-2 and Tier-3 certified importers to affix mandatory declarations at customs bonded warehouses before goods exit the bonded perimeter."
+      },
+      {
+        "notification": "Jan Vishwas (Amendment of Provisions) Act, 2026",
+        "subject": "Decriminalization & Administrative Compounding",
+        "description": "Transitions minor first-time metrology infractions to civil adjudication officers under structured administrative compounding schedules."
+      }
+    ]
+  },
+  "violation_ontology_16_categories": [
+    {
+      "code": "FOOD_ADULTERATION",
+      "title": "Food Adulteration",
+      "statute": "Food Safety and Standards Act, 2006 (Sec 3(1)(a), Sec 26, Sec 51)",
+      "severity": "CRITICAL",
+      "description": "Addition of cheaper, inferior, or toxic foreign substances or abstraction of nutritive constituents.",
+      "ai_detection_heuristics": ["chemical_assay_ingestion", "ocr_ingredient_blacklist_match", "unauthorized_multi_source_oil_detection"],
+      "penalty": "Fine up to ₹5,00,000 (sub-standard) to life imprisonment + ₹10,00,000 (injurious/toxic adulteration)."
+    },
+    {
+      "code": "UNSAFE_FOOD",
+      "title": "Unsafe Food",
+      "statute": "Food Safety and Standards Act, 2006 (Sec 3(1)(zx), Sec 59)",
+      "severity": "CRITICAL_RED_ALERT",
+      "description": "Food injurious to health due to micro-pathogens, toxins, chemical residues, or decomposition.",
+      "ai_detection_heuristics": ["pathogen_test_report_parser", "aflatoxin_threshold_checker", "physical_foreign_object_cv_detection"],
+      "penalty": "Imprisonment from 6 months to life imprisonment + fine up to ₹10,00,000; immediate batch recall."
+    },
+    {
+      "code": "SPOILED_FOOD",
+      "title": "Spoiled Food",
+      "statute": "Food Safety and Standards Act, 2006 (Sec 26(2)(i), Sec 59)",
+      "severity": "MAJOR",
+      "description": "Natural decomposition, putrefaction, rancidity, or microbial fermentation rendering food unfit.",
+      "ai_detection_heuristics": ["mold_and_fungus_cv_classifier", "can_bloating_detection", "peroxide_value_analyzer"],
+      "penalty": "Fine up to ₹1,00,000 to ₹3,00,000; lot confiscation."
+    },
+    {
+      "code": "CONTAMINATION",
+      "title": "Contamination",
+      "statute": "FSS (Contaminants, Toxins and Residues) Regulations, 2011; FSSA 2006 Sec 21",
+      "severity": "MAJOR",
+      "description": "Extraneous heavy metals, pesticides exceeding MRLs, veterinary drug residues, or radiological matter.",
+      "ai_detection_heuristics": ["heavy_metal_ppm_validator", "pesticide_mrl_table_crosscheck", "xray_metal_detector_log_analyzer"],
+      "penalty": "Fine up to ₹1,00,000 (extraneous matter) to ₹5,00,000 (chemical exceedance)."
+    },
+    {
+      "code": "HYGIENE_PROBLEM",
+      "title": "Hygiene Problem",
+      "statute": "Food Safety and Standards Act, 2006 (Sec 56 read with Schedule 4)",
+      "severity": "MAJOR",
+      "description": "Unsanitary processing, storage, or distribution conditions posing contamination hazards.",
+      "ai_detection_heuristics": ["premises_audit_cv_classifier", "pest_infestation_detection", "water_coliform_assay_parser"],
+      "penalty": "Penalty up to ₹1,00,000 + suspension of FSSAI operating license."
+    },
+    {
+      "code": "MISLEADING_LABEL",
+      "title": "Misleading Label",
+      "statute": "FSS (Advertising and Claims) Regulations, 2018; LMPC Rule 13; FSSA Sec 24 & 53",
+      "severity": "CRITICAL",
+      "description": "Deceptive descriptions, unauthorized claims ('Natural', 'Fresh', 'Pure', '100% Fruit Juice' on reconstituted juice, 'ORS' on synthetic drinks).",
+      "ai_detection_heuristics": ["claims_regex_and_nlp_matcher", "fruit_juice_reconstituted_concentrate_crosscheck", "ors_trademark_auditor"],
+      "penalty": "Fine up to ₹10,00,000 (FSSA Sec 53); CCPA misleading advertisement actions."
+    },
+    {
+      "code": "MISSING_LABEL_DECLARATION",
+      "title": "Missing Label Declaration",
+      "statute": "LMPC Rules, 2011 (Rule 6); FSS (Labelling and Display) Regulations, 2020 (Reg 5)",
+      "severity": "CRITICAL",
+      "description": "Omission of any mandatory statutory declarations (Manufacturer, Origin, Common Name, Net Qty, MRP, USP, Date, Consumer Care).",
+      "ai_detection_heuristics": ["pdp_mandatory_declaration_presence_evaluator", "bounding_box_completeness_matrix"],
+      "penalty": "Fine up to ₹25,000 (first) to ₹1,00,000 or 1 yr jail (subsequent) under LM Act Sec 36(2); Misbranding fine up to ₹3,00,000."
+    },
+    {
+      "code": "WRONG_NET_QUANTITY",
+      "title": "Wrong Net Quantity",
+      "statute": "LMPC Rules, 2011 (Rules 11, 12, 13 & First Schedule MPE); LM Act Sec 36(1)",
+      "severity": "CRITICAL",
+      "description": "Use of illegal metric symbols (gms, kgs, ltrs), vague expressions (approx), or measured quantity short of declaration beyond MPE.",
+      "ai_detection_heuristics": ["metric_symbol_validator", "vague_term_regex_blocker", "mpe_tolerance_calculator"],
+      "penalty": "Fine up to ₹25,000 to ₹1,00,000 or 1 yr imprisonment under LM Act Sec 36(1)."
+    },
+    {
+      "code": "MRP_ISSUE",
+      "title": "MRP Issue",
+      "statute": "LMPC Rules, 2011 (Rule 6(1)(e), Rule 18(2), Rule 18(5))",
+      "severity": "CRITICAL",
+      "description": "Overcharging above MRP, missing '(incl. of all taxes)', price overlay stickers over original MRP, or dual MRP in multiplexes/airports.",
+      "ai_detection_heuristics": ["sticker_overlay_cv_model", "tax_inclusive_syntax_regex", "pos_receipt_crosscheck_engine", "anti_dual_mrp_db_matcher"],
+      "penalty": "Fine up to ₹25,000 to ₹50,000 per violation; seizure of lot under Section 15."
+    },
+    {
+      "code": "EXPIRY_DATE_ISSUE",
+      "title": "Expiry Date Issue",
+      "statute": "FSS (Labelling and Display) Regulations, 2020 (Reg 5(6)); FSSA Sec 26(2)(iv)",
+      "severity": "CRITICAL_RED_ALERT",
+      "description": "Selling or stocking products beyond declared Expiry / Use By Date, separated dates, or tampered date stamps.",
+      "ai_detection_heuristics": ["temporal_delta_calculator", "spatial_mfg_expiry_proximity_checker", "date_tamper_detection_cv"],
+      "penalty": "Treated as unsafe/substandard food: Fine up to ₹3,00,000 to ₹5,00,000 + stock destruction."
+    },
+    {
+      "code": "PACKAGING_ISSUE",
+      "title": "Packaging Issue",
+      "statute": "FSS (Packaging) Regulations, 2018 (OML limits, printing ink IS 15495, newspaper ban)",
+      "severity": "MAJOR",
+      "description": "Use of newspaper wrapping, uncertified recycled plastics, printing ink touching food, or compromised package seal.",
+      "ai_detection_heuristics": ["newspaper_print_cv_classifier", "packaging_seal_puncture_detector", "food_grade_symbol_scanner"],
+      "penalty": "Penalty up to ₹2,00,000 under FSSA Sec 58; cancellation of registration."
+    },
+    {
+      "code": "INGREDIENT_DISCLOSURE",
+      "title": "Ingredient Disclosure",
+      "statute": "FSS (Labelling and Display) Regulations, 2020 (Reg 5(1))",
+      "severity": "MAJOR",
+      "description": "Missing ingredient list in descending order, compound ingredient disclosure omissions, or missing INS numbers for additives.",
+      "ai_detection_heuristics": ["descending_order_parser", "additive_functional_class_and_ins_matcher", "ins_positive_list_auditor"],
+      "penalty": "Fine up to ₹3,00,000 for misbranding under FSSA Sec 52."
+    },
+    {
+      "code": "ALLERGEN_DECLARATION",
+      "title": "Allergen Declaration",
+      "statute": "FSS (Labelling and Display) Regulations, 2020 (Reg 5(5))",
+      "severity": "MAJOR",
+      "description": "Failure to declare 8 major food allergens (gluten, crustacean, egg, fish, peanut, soy, milk, sulphite) in bold or callout box.",
+      "ai_detection_heuristics": ["allergen_lexicon_ingredient_scanner", "bold_font_and_callout_box_detector"],
+      "penalty": "Fine up to ₹3,00,000 for misbranding under FSSA Sec 52; mandatory product recall if dangerous."
+    },
+    {
+      "code": "FSSAI_INFORMATION",
+      "title": "FSSAI Information",
+      "statute": "FSS (Labelling and Display) Regulations, 2020 (Reg 5(2))",
+      "severity": "CRITICAL",
+      "description": "Missing or illegible FSSAI logo and 14-digit license number, checksum failures, or inactive/expired FoSCoS status.",
+      "ai_detection_heuristics": ["fssai_logo_object_detector", "license_regex_and_taxonomy_validator", "live_foscos_api_lookup"],
+      "penalty": "Fine up to ₹3,00,000 under FSSA Sec 52; criminal forgery charges for fraudulent numbers."
+    },
+    {
+      "code": "UNLICENSED_FOOD_BUSINESS",
+      "title": "Unlicensed Food Business",
+      "statute": "Food Safety and Standards Act, 2006 (Sec 31 & Sec 63)",
+      "severity": "CRITICAL_CRIMINAL",
+      "description": "Operating a food business, packing, or selling pre-packaged food without a valid active FSSAI License or Registration.",
+      "ai_detection_heuristics": ["license_absence_detector", "foscos_revocation_surrender_verifier"],
+      "penalty": "Imprisonment up to 6 months AND fine up to ₹5,00,000 under FSSA Sec 63; premises sealing."
+    },
+    {
+      "code": "OTHER_FOOD_SAFETY",
+      "title": "Other Food Safety",
+      "statute": "State Gazettes (FSSA Sec 30(2)(a)); Consumer Protection (E-Commerce) Rules, 2020",
+      "severity": "MAJOR",
+      "description": "Maharashtra Section 30(2)(a) Gutkha/scented supari ban, loose edible oil sale ban (Reg 2.3.15), or e-commerce dark patterns.",
+      "ai_detection_heuristics": ["maharashtra_gutkha_prohibited_terms_regex", "loose_oil_packaging_detector", "ecom_dark_pattern_auditor"],
+      "penalty": "Immediate criminal seizure under Sec 30/59; penalties under Consumer Protection Act, 2019."
+    }
+  ],
+  "principal_display_panel_rules": {
+    "geometry_formulas": {
+      "rectangular": "height * width of largest face",
+      "cylindrical": "0.40 * height * (pi * diameter)",
+      "other_irregular": "0.20 * total_surface_area"
+    },
+    "table_1_font_size_thresholds": [
+      { "area_max_sq_cm": 50, "min_font_height_normal_mm": 1.0, "min_font_height_blown_moulded_mm": 2.0 },
+      { "area_min_sq_cm": 50, "area_max_sq_cm": 100, "min_font_height_normal_mm": 1.5, "min_font_height_blown_moulded_mm": 3.0 },
+      { "area_min_sq_cm": 100, "area_max_sq_cm": 500, "min_font_height_normal_mm": 2.5, "min_font_height_blown_moulded_mm": 4.0 },
+      { "area_min_sq_cm": 500, "area_max_sq_cm": 2500, "min_font_height_normal_mm": 4.0, "min_font_height_blown_moulded_mm": 6.0 },
+      { "area_min_sq_cm": 2500, "min_font_height_normal_mm": 6.0, "min_font_height_blown_moulded_mm": 6.0 }
+    ],
+    "character_aspect_ratio": {
+      "min_width_to_height_ratio": 0.333,
+      "exempt_characters": ["1", "I", "l", "i"]
+    }
+  },
+  "maximum_permissible_error_schedule_1": [
+    { "min_qty": 0, "max_qty": 50, "percentage_error": 9.0, "absolute_error": null },
+    { "min_qty": 50, "max_qty": 100, "percentage_error": null, "absolute_error": 4.5 },
+    { "min_qty": 100, "max_qty": 200, "percentage_error": 4.5, "absolute_error": null },
+    { "min_qty": 200, "max_qty": 300, "percentage_error": null, "absolute_error": 9.0 },
+    { "min_qty": 300, "max_qty": 500, "percentage_error": 3.0, "absolute_error": null },
+    { "min_qty": 500, "max_qty": 1000, "percentage_error": null, "absolute_error": 15.0 },
+    { "min_qty": 1000, "max_qty": 10000, "percentage_error": 1.5, "absolute_error": null },
+    { "min_qty": 10000, "max_qty": 15000, "percentage_error": null, "absolute_error": 150.0 },
+    { "min_qty": 15000, "percentage_error": 1.0, "absolute_error": null }
+  ],
+  "packaging_regulations_2018_limits": {
+    "overall_migration_limit_mg_per_kg": 60.0,
+    "overall_migration_limit_mg_per_sq_dm": 10.0,
+    "heavy_metal_specific_migration_limits_mg_per_kg": {
+      "lead_pb": 0.01,
+      "cadmium_cd": 0.01,
+      "chromium_cr": 0.05
+    },
+    "prohibited_materials": [
+      "printed_newspapers",
+      "recycled_unapproved_plastics",
+      "non_food_grade_paper",
+      "printing_inks_containing_toluene_or_toxic_solvents"
+    ]
+  },
+  "prohibited_sales_and_admixtures_2011": {
+    "khesari_dal_tolerance_percentage_incidental": 2.0,
+    "loose_edible_vegetable_oil_sale": "strictly_prohibited",
+    "admixtures_of_edible_oils": "prohibited_unless_blended_edible_vegetable_oil_with_agmark",
+    "maharashtra_gutkha_ban_section": "Section 30(2)(a) of FSSA 2006"
+  }
+}

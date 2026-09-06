@@ -1,0 +1,20 @@
+{
+  "short_name": "LabelLens",
+  "name": "Label Lens AI - Legal Metrology Compliance Engine",
+  "description": "AI-powered statutory Legal Metrology (PCR 2011/2026) and FSSAI packaging compliance auditor and complaint generator.",
+  "icons": [
+    {
+      "src": "./logo.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "categories": ["government", "utilities", "business"]
+}

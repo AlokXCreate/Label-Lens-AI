@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans;
+  }
+
+  /* Indic Script Typography Tuning: Ensures diacritics, matras, and conjuncts don't clip */
+  html[lang="hi"],
+  html[lang="mr"],
+  html[lang="ta"],
+  html[lang="te"],
+  html[lang="bn"],
+  html[lang="gu"],
+  html[lang="kn"],
+  html[lang="ml"],
+  html[lang="pa"] {
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+  }
+
+  /* Devanagari specific (Hindi, Marathi) */
+  html[lang="hi"] body,
+  html[lang="mr"] body {
+    font-feature-settings: "akhn", "blwf", "half", "nukt", "rphf", "vatu";
+  }
+
+  /* Tamil specific */
+  html[lang="ta"] body {
+    font-feature-settings: "akhn", "blwf", "haln", "pres";
+  }
+
+  /* Telugu & Kannada */
+  html[lang="te"] body,
+  html[lang="kn"] body {
+    font-feature-settings: "akhn", "blwf", "half", "pstf";
+  }
+
+  /* Bengali & Gujarati */
+  html[lang="bn"] body,
+  html[lang="gu"] body {
+    font-feature-settings: "akhn", "blwf", "half", "nukt", "rphf";
+  }
+}

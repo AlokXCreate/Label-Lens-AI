@@ -1,0 +1,71 @@
+{
+  "expo": {
+    "name": "Label Lens AI",
+    "slug": "label-lens-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./public/favicon.ico",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "gov.in.doca.labellens",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Label Lens AI requires camera access to scan packaged commodity labels, MRP, barcodes, and date stamps.",
+        "NSMicrophoneUsageDescription": "Label Lens AI requires microphone access to record voice compliance notes and official helpline calls.",
+        "NSLocationWhenInUseUsageDescription": "Label Lens AI requires location access to geo-tag regulatory complaints and locate nearest enforcement offices."
+      }
+    },
+    "android": {
+      "package": "gov.in.doca.labellens",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.CALL_PHONE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.INTERNET"
+      ]
+    },
+    "web": {
+      "favicon": "./public/favicon.ico",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Label Lens AI to scan packaged product labels, barcodes, and MRP declarations."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Label Lens AI to attach verified GPS coordinates to official complaints and calculate distances to nearest Legal Metrology offices."
+        }
+      ],
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow Label Lens AI to record voice observations and helpline interactions with FSSAI/Legal Metrology authorities."
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "label-lens-ai-sih-2026"
+      }
+    }
+  }
+}
