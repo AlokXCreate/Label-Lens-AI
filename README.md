@@ -16,7 +16,7 @@
 ## 🌐 Live Deployments & Downloads
 
 - 🚀 **Live Official Web Application:** [https://alokxcreate.github.io/Label-Lens-AI/](https://alokxcreate.github.io/Label-Lens-AI/)
-- 📱 **Download Android APK (Direct Release):** [Download Latest APK (v1.1.0)](https://github.com/AlokXCreate/Label-Lens-AI/releases/latest)
+- 📱 **Download Android APK (Direct Release):** [Download Latest APK (v1.2.0)](https://github.com/AlokXCreate/Label-Lens-AI/releases/latest)
 - 📦 **GitHub Actions CI/CD Artifacts:** [GitHub Actions APK Runs](https://github.com/AlokXCreate/Label-Lens-AI/actions/workflows/build-apk.yml)
 
 ---

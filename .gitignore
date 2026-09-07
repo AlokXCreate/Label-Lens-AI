@@ -48,4 +48,5 @@ android/captures/
 android/.idea/
 android/local.properties
 apk/
+*.apk
 

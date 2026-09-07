@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  body { width: 1920px; height: 1080px; background: #070B14; color: #F8FAFC; overflow: hidden; display: flex; flex-direction: column; padding: 36px 48px; position: relative; }
+  .bg-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px); background-size: 32px 32px; pointer-events: none; }
+  
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1E293B; padding-bottom: 18px; margin-bottom: 24px; position: relative; z-index: 1; }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand img { width: 54px; height: 54px; }
+  .brand-text h1 { font-size: 26px; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 12px; }
+  .brand-text h1 span.highlight { background: linear-gradient(135deg, #10B981, #38BDF8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); text-transform: uppercase; }
+  .brand-text p { font-size: 13.5px; color: #94A3B8; margin-top: 3px; }
+  
+  .meta-right { text-align: right; }
+  .meta-pill { display: inline-flex; align-items: center; gap: 8px; background: #0F172A; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #E2E8F0; }
+
+  .flow-container { display: flex; gap: 18px; flex: 1; position: relative; z-index: 1; align-items: stretch; }
+  
+  .stage-card { flex: 1; background: rgba(15, 23, 42, 0.85); border: 1px solid #1E293B; border-radius: 14px; padding: 22px 18px; display: flex; flex-direction: column; position: relative; backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+  .stage-card::before { content: ""; position: absolute; top: 0; left: 18px; right: 18px; height: 3px; border-radius: 3px; }
+  
+  .st-1::before { background: linear-gradient(90deg, #38BDF8, #0284C7); }
+  .st-2::before { background: linear-gradient(90deg, #818CF8, #6366F1); }
+  .st-3::before { background: linear-gradient(90deg, #F59E0B, #EF4444); }
+  .st-4::before { background: linear-gradient(90deg, #EC4899, #8B5CF6); }
+  .st-5::before { background: linear-gradient(90deg, #10B981, #059669); }
+
+  .stage-badge { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .st-num { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.8px; text-transform: uppercase; }
+  .st-1 .st-num { background: rgba(56, 189, 248, 0.15); color: #38BDF8; }
+  .st-2 .st-num { background: rgba(129, 140, 248, 0.15); color: #818CF8; }
+  .st-3 .st-num { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+  .st-4 .st-num { background: rgba(236, 72, 153, 0.15); color: #F472B6; }
+  .st-5 .st-num { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+  .st-time { font-size: 11px; color: #64748B; font-weight: 600; }
+
+  .stage-title { font-size: 16.5px; font-weight: 700; color: #FFFFFF; line-height: 1.3; margin-bottom: 12px; min-height: 44px; }
+  
+  .sub-box { background: #0B132B; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+  .sub-box-title { font-size: 12px; font-weight: 700; color: #E2E8F0; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .sub-bullets { list-style: none; }
+  .sub-bullets li { font-size: 11px; color: #94A3B8; margin-top: 4px; line-height: 1.35; display: flex; gap: 5px; }
+  .sub-bullets li::before { content: "›"; color: #38BDF8; font-weight: bold; font-size: 14px; line-height: 1; }
+
+  .out-box { margin-top: auto; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 8px; padding: 10px 12px; font-size: 11px; color: #CBD5E1; }
+  .out-box strong { color: #38BDF8; display: block; margin-bottom: 2px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .arrow-indicator { position: absolute; right: -13px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; border-radius: 50%; background: #1E293B; border: 1px solid #334155; display: flex; align-items: center; justify-content: center; z-index: 10; color: #38BDF8; font-size: 12px; font-weight: bold; }
+
+  .footer-strip { margin-top: 18px; padding-top: 14px; border-top: 1px solid #1E293B; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: #64748B; position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <div class="header">
+    <div class="brand">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIj4NCiAgPGRlZnM+DQogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJsb2dvTGVuc0F1cmEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUUyOTNCIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI2NSUiIHN0b3AtY29sb3I9IiMwRjE3MkEiIC8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMjA2MTciIC8+DQogICAgPC9yYWRpYWxHcmFkaWVudD4NCiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxvZ29TaGllbGRCb3JkZXIiIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCIgeTI9IjEwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM4QkRGOCIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjNjM2NkYxIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTBCOTgxIiAvPg0KICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgPGxpbmVhckdyYWRpZW50IGlkPSJsb2dvR29sZFNjYWxlcyIgeDE9IjAiIHkxPSIwIiB4Mj0iMTAwIiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZERTA0NyIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0VBQjMwOCIgLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibG9nb1RyaWNvbG9yIiB4MT0iMCIgeTE9IjAiIHgyPSIxMDAiIHkyPSIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkY5OTMzIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI0OCUiIHN0b3AtY29sb3I9IiNGRkZGRkYiIC8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjUyJSIgc3RvcC1jb2xvcj0iI0ZGRkZGRiIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEzODgwOCIgLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICA8L2RlZnM+DQoNCiAgPCEtLSBEZWVwIE9wdGljYWwgTGVucyBCYWNrZ3JvdW5kIC0tPg0KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSJ1cmwoI2xvZ29MZW5zQXVyYSkiIC8+DQoNCiAgPCEtLSBQcmVjaXNpb24gT3V0ZXIgQ2lyY3VsYXIgUmV0aWNsZSBUcmFjayAtLT4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDEiIHN0cm9rZT0iIzMzNDE1NSIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMyIgLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzQiIHN0cm9rZT0iIzFFMjkzQiIgc3Ryb2tlLXdpZHRoPSIxIiAvPg0KDQogIDwhLS0gRXh0ZXJpb3IgUm91bmRlZCBQcm90ZWN0aXZlIFNoaWVsZCAtLT4NCiAgPHBhdGgNCiAgICBkPSJNNTAgMTQgTDc4IDI0IEM3OCA1MiA1MCA4MiA1MCA4MiBDNTAgODIgMjIgNTIgMjIgMjQgWiINCiAgICBmaWxsPSIjMEYxNzJBIg0KICAgIGZpbGwtb3BhY2l0eT0iMC44NSINCiAgICBzdHJva2U9InVybCgjbG9nb1NoaWVsZEJvcmRlcikiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCINCiAgLz4NCg0KICA8IS0tIE9wdGljYWwgU2Nhbm5lciBSZXRpY2xlIEJyYWNrZXRzIChDeWFuKSAtLT4NCiAgPHBhdGggZD0iTTMxIDMyIEgzOCBNMzEgMzIgVjM5IiBzdHJva2U9IiMzOEJERjgiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+DQogIDxwYXRoIGQ9Ik02OSAzMiBINjIgTTY5IDMyIFYzOSIgc3Ryb2tlPSIjMzhCREY4IiBzdHJva2Utd2lkdGg9IjIuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPg0KICA8cGF0aCBkPSJNMzEgNjIgSDM4IE0zMSA2MiBWNTUiIHN0cm9rZT0iIzM4QkRGOCIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4NCiAgPHBhdGggZD0iTTY5IDYyIEg2MiBNNjkgNjIgVjU1IiBzdHJva2U9IiMzOEJERjgiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+DQoNCiAgPCEtLSBHb2xkZW4gU2NhbGVzIG9mIEp1c3RpY2UgKExlZ2FsIE1ldHJvbG9neSBBY3QsIDIwMDkpIC0tPg0KICA8cGF0aCBkPSJNMzcgNDAgSDYzIiBzdHJva2U9InVybCgjbG9nb0dvbGRTY2FsZXMpIiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPg0KICA8cGF0aCBkPSJNNTAgMzQgVjQ2IiBzdHJva2U9InVybCgjbG9nb0dvbGRTY2FsZXMpIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNCIgcj0iMi4yIiBmaWxsPSIjRkRFMDQ3IiAvPg0KDQogIDwhLS0gTGVmdCAmIFJpZ2h0IFNjYWxlIFBhbnMgLS0+DQogIDxwYXRoIGQ9Ik0zNSA0MSBMMzIgNDcgSDQyIEwzOSA0MSBaIiBmaWxsPSIjRkRFMDQ3IiBmaWxsLW9wYWNpdHk9IjAuOCIgLz4NCiAgPHBhdGggZD0iTTY1IDQxIEw2MiA0NyBINzIgTDY5IDQxIFoiIGZpbGw9IiNGREUwNDciIGZpbGwtb3BhY2l0eT0iMC44IiAvPg0KDQogIDwhLS0gQ2VudHJhbCBWZXJpZmllZCBTdGF0dXRvcnkgQ2hlY2ttYXJrIFNlYWwgKFJ1bGUgNiAvIEZTU0FJKSAtLT4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1NyIgcj0iMTAiIGZpbGw9IiMxMEI5ODEiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIxLjgiIC8+DQogIDxwYXRoDQogICAgZD0iTTQ1LjUgNTcgTDQ4LjggNjAuMyBMNTUgNTMuOCINCiAgICBzdHJva2U9IiNGRkZGRkYiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIg0KICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiDQogIC8+DQoNCiAgPCEtLSBTb3ZlcmVpZ24gSW5kaWFuIFRyaWNvbG9yIEJhc2UgQXJjIC0tPg0KICA8cGF0aA0KICAgIGQ9Ik0zNyA3MiBRNTAgNzggNjMgNzIiDQogICAgc3Ryb2tlPSJ1cmwoI2xvZ29Ucmljb2xvcikiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIg0KICAgIGZpbGw9Im5vbmUiDQogIC8+DQo8L3N2Zz4NCg==" alt="Label Lens AI" />
+      <div class="brand-text">
+        <h1>METHODOLOGY & WORKFLOW PIPELINE <span class="badge">5-Stage Execution</span></h1>
+        <p>Operational Sequence from Packaging Capture to Cryptographic Audit & Government Grievance Transmission</p>
+      </div>
+    </div>
+    <div class="meta-right">
+      <div class="meta-pill">
+        <span>⏱️ Total Latency: 3.2 Seconds End-to-End</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flow-container">
+
+    <!-- Stage 1 -->
+    <div class="stage-card st-1">
+      <div class="arrow-indicator">➔</div>
+      <div class="stage-badge">
+        <span class="st-num">Stage 01</span>
+        <span class="st-time">~ 400ms</span>
+      </div>
+      <div class="stage-title">Multi-Panel PDP Capture & Normalization</div>
+      
+      <div class="sub-box">
+        <div class="sub-box-title">📷 Ingestion Modes</div>
+        <ul class="sub-bullets">
+          <li>Hardware Camera2 API (Native APK)</li>
+          <li>Live Web Stream & drag-drop upload</li>
+          <li>Multi-angle Principal Display Panel capture</li>
+        </ul>
+      </div>
+      <div class="sub-box">
+        <div class="sub-box-title">⚙️ Client Pre-Processing</div>
+        <ul class="sub-bullets">
+          <li>Adaptive histogram contrast equalization</li>
+          <li>Foil glare & shadow attenuation</li>
+          <li>Aspect area calibration: A = H × W</li>
+        </ul>
+      </div>
+
+      <div class="out-box">
+        <strong>Stage Output</strong>
+        Normalized 1080p PDP Canvas Buffer + Bounding Geometry
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="stage-card st-2">
+      <div class="arrow-indicator">➔</div>
+      <div class="stage-badge">
+        <span class="st-num">Stage 02</span>
+        <span class="st-time">~ 1,600ms</span>
+      </div>
+      <div class="stage-title">Multimodal Neural Vision Extraction</div>
+      
+      <div class="sub-box">
+        <div class="sub-box-title">✨ Gemini 2.5 Flash Vision</div>
+        <ul class="sub-bullets">
+          <li>Spatial bounding-box coordinate tracking</li>
+          <li>Multi-lingual text parsing in 10 scripts</li>
+          <li>Zero-shot icon detector (Veg/Non-Veg)</li>
+        </ul>
+      </div>
+      <div class="sub-box">
+        <div class="sub-box-title">📋 10 Mandatory Rule-6 Fields</div>
+        <ul class="sub-bullets">
+          <li>Name & address of Manufacturer / Packer</li>
+          <li>Net quantity, MRP & Unit Sale Price (USP)</li>
+          <li>Mfg date, Expiry, Batch & Customer care</li>
+        </ul>
+      </div>
+
+      <div class="out-box">
+        <strong>Stage Output</strong>
+        Validated JSON Schema with Field Text & Coordinates
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="stage-card st-3">
+      <div class="arrow-indicator">➔</div>
+      <div class="stage-badge">
+        <span class="st-num">Stage 03</span>
+        <span class="st-time">~ 500ms</span>
+      </div>
+      <div class="stage-title">Deterministic Statutory Rules Engine</div>
+      
+      <div class="sub-box">
+        <div class="sub-box-title">⚖️ Legal Metrology (PCR 2011)</div>
+        <ul class="sub-bullets">
+          <li>Table-I font height audit (1.0mm to 6.0mm)</li>
+          <li>Net quantity & metric unit standard check</li>
+          <li>Unit Sale Price formula: USP = MRP / Qty</li>
+        </ul>
+      </div>
+      <div class="sub-box">
+        <div class="sub-box-title">🛡️ Food Safety (FSSA 2006)</div>
+        <ul class="sub-bullets">
+          <li>14-digit FSSAI Modulo-11 checksum</li>
+          <li>Mandatory 8 allergen declaration scan</li>
+          <li>Dual-pricing & deceptive shrinkflation flag</li>
+        </ul>
+      </div>
+
+      <div class="out-box">
+        <strong>Stage Output</strong>
+        Violation Array + Section 36 Penalty Assessment
+      </div>
+    </div>
+
+    <!-- Stage 4 -->
+    <div class="stage-card st-4">
+      <div class="arrow-indicator">➔</div>
+      <div class="stage-badge">
+        <span class="st-num">Stage 04</span>
+        <span class="st-time">~ 300ms</span>
+      </div>
+      <div class="stage-title">Cryptographic Evidence Docket Sealing</div>
+      
+      <div class="sub-box">
+        <div class="sub-box-title">🔒 Web Crypto SHA-256</div>
+        <ul class="sub-bullets">
+          <li>Tamper-proof digital seal of packaging image</li>
+          <li>GPS geotag & NTP timestamp watermark</li>
+          <li>Court-admissible under Sec 65B Evidence Act</li>
+        </ul>
+      </div>
+      <div class="sub-box">
+        <div class="sub-box-title">📊 Statutory Scoring</div>
+        <ul class="sub-bullets">
+          <li>0 to 100 Compliance Quality Index</li>
+          <li>Section 36 compounding fine: ₹25k to ₹50k</li>
+          <li>Exportable PDF & DOCX inspection dossier</li>
+        </ul>
+      </div>
+
+      <div class="out-box">
+        <strong>Stage Output</strong>
+        Sealed Cryptographic Audit Docket (PDF/DOCX)
+      </div>
+    </div>
+
+    <!-- Stage 5 -->
+    <div class="stage-card st-5">
+      <div class="stage-badge">
+        <span class="st-num">Stage 05</span>
+        <span class="st-time">~ 400ms</span>
+      </div>
+      <div class="stage-title">1-Click Multi-Channel Grievance Dispatch</div>
+      
+      <div class="sub-box">
+        <div class="sub-box-title">📧 Direct Authority Email</div>
+        <ul class="sub-bullets">
+          <li>Dispatched to compliance@fssai.gov.in</li>
+          <li>Targeted State Food Safety Commissioners</li>
+          <li>Automated statutory petition transmission</li>
+        </ul>
+      </div>
+      <div class="sub-box">
+        <div class="sub-box-title">🏛️ National Grievance Portals</div>
+        <ul class="sub-bullets">
+          <li>FoSCoS Food Safety Grievance Portal</li>
+          <li>National Consumer Helpline (NCH 1915)</li>
+          <li>CPGRAMS Central Public Grievance Portal</li>
+        </ul>
+      </div>
+
+      <div class="out-box">
+        <strong>Stage Output</strong>
+        Formal Grievance Lodged + Tracking Confirmation ID
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-strip">
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <span style="color: #38BDF8; font-weight: 700;">Key Advantage:</span>
+      <span style="color: #CBD5E1;">Eliminates 25-minute manual caliper inspections with sub-4-second automated legal dockets.</span>
+    </div>
+    <div style="color: #94A3B8; font-size: 12px;">
+      SIH 2026 Problem Statement 26034 • Ministry of Consumer Affairs, Food & Public Distribution
+    </div>
+  </div>
+
+</body>
+</html>

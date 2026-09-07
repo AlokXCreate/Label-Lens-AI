@@ -118,10 +118,10 @@ export const ExportBar: React.FC<ExportBarProps> = ({
     <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 sm:p-5 space-y-4 transition-colors">
       
       {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-400 flex items-center justify-center font-bold border border-brand-200/50 dark:border-brand-800/60">
+            <div className="w-7 h-7 rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-400 flex items-center justify-center font-bold border border-brand-200/50 dark:border-brand-800/60 shrink-0">
               <Download className="w-4 h-4 text-brand-600 dark:text-brand-400" />
             </div>
             <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100 tracking-tight">
@@ -132,17 +132,17 @@ export const ExportBar: React.FC<ExportBarProps> = ({
               5 Multi-Formats
             </span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Download comprehensive audit reports in PDF, DOCX, interactive HTML with logo, JSON, or plain text
+          <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5 sm:mt-1">
+            Download comprehensive audit reports in PDF, DOCX, HTML with logo, JSON, or TXT
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 pt-0.5 sm:pt-0">
           {/* One-Click Google Drive Export */}
           <button
             onClick={handleGoogleDriveExport}
             disabled={isExportingDrive}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold text-xs transition active:scale-95 disabled:opacity-50 shadow-xs"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold text-xs transition active:scale-95 disabled:opacity-50 shadow-xs tap-transparent"
             title="Export Dossier directly to Google Drive"
           >
             {isExportingDrive ? (
@@ -156,7 +156,7 @@ export const ExportBar: React.FC<ExportBarProps> = ({
           {/* Share via Email */}
           <button
             onClick={handleShareEmail}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs transition active:scale-95 shadow-xs border border-slate-200/60 dark:border-slate-700"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs transition active:scale-95 shadow-xs border border-slate-200/60 dark:border-slate-700 tap-transparent"
             title="Share Audit via Email"
           >
             <Mail className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />

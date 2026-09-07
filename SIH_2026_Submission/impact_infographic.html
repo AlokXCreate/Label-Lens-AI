@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  body { width: 1920px; height: 1080px; background: #070B14; color: #F8FAFC; overflow: hidden; display: flex; flex-direction: column; padding: 36px 48px; position: relative; }
+  .bg-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px); background-size: 32px 32px; pointer-events: none; }
+  
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1E293B; padding-bottom: 18px; margin-bottom: 22px; position: relative; z-index: 1; }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand img { width: 54px; height: 54px; }
+  .brand-text h1 { font-size: 26px; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 12px; }
+  .brand-text h1 span.highlight { background: linear-gradient(135deg, #10B981, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); text-transform: uppercase; }
+  .brand-text p { font-size: 13.5px; color: #94A3B8; margin-top: 3px; }
+  
+  .meta-right { text-align: right; }
+  .meta-pill { display: inline-flex; align-items: center; gap: 8px; background: #0F172A; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #E2E8F0; }
+
+  /* Top Stat Cards */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 22px; position: relative; z-index: 1; }
+  .stat-card { background: rgba(15, 23, 42, 0.8); border: 1px solid #1E293B; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; backdrop-filter: blur(12px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
+  .stat-card::before { content: ""; position: absolute; top: 0; left: 0; bottom: 0; width: 4px; }
+  .sc-1::before { background: #38BDF8; }
+  .sc-2::before { background: #F59E0B; }
+  .sc-3::before { background: #10B981; }
+  .sc-4::before { background: #EC4899; }
+  .sc-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; background: #0B132B; border: 1px solid rgba(255,255,255,0.08); }
+  .sc-val { font-size: 28px; font-weight: 800; color: #FFFFFF; line-height: 1.1; }
+  .sc-label { font-size: 12px; color: #94A3B8; margin-top: 3px; }
+
+  /* 4 Pillars Grid */
+  .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; flex: 1; position: relative; z-index: 1; }
+  .pillar-card { background: rgba(15, 23, 42, 0.8); border: 1px solid #1E293B; border-radius: 14px; padding: 22px 24px; display: flex; flex-direction: column; backdrop-filter: blur(12px); position: relative; }
+  .pillar-card::before { content: ""; position: absolute; top: 0; left: 24px; right: 24px; height: 3px; border-radius: 3px; }
+  .p-1::before { background: linear-gradient(90deg, #38BDF8, #6366F1); }
+  .p-2::before { background: linear-gradient(90deg, #F59E0B, #EF4444); }
+  .p-3::before { background: linear-gradient(90deg, #10B981, #059669); }
+  .p-4::before { background: linear-gradient(90deg, #EC4899, #8B5CF6); }
+
+  .p-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .p-tag { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; padding: 3px 8px; border-radius: 4px; }
+  .p-1 .p-tag { background: rgba(56, 189, 248, 0.15); color: #38BDF8; }
+  .p-2 .p-tag { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+  .p-3 .p-tag { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+  .p-4 .p-tag { background: rgba(236, 72, 153, 0.15); color: #F472B6; }
+  .p-title { font-size: 18px; font-weight: 700; color: #FFFFFF; }
+
+  .p-list { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .p-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #CBD5E1; line-height: 1.45; }
+  .p-bullet { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; margin-top: 2px; font-weight: bold; }
+  .p-1 .p-bullet { background: rgba(56, 189, 248, 0.2); color: #38BDF8; }
+  .p-2 .p-bullet { background: rgba(245, 158, 11, 0.2); color: #FBBF24; }
+  .p-3 .p-bullet { background: rgba(16, 185, 129, 0.2); color: #34D399; }
+  .p-4 .p-bullet { background: rgba(236, 72, 153, 0.2); color: #F472B6; }
+
+  .footer-strip { margin-top: 18px; padding-top: 14px; border-top: 1px solid #1E293B; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: #64748B; position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <div class="header">
+    <div class="brand">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIj4NCiAgPGRlZnM+DQogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJsb2dvTGVuc0F1cmEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUUyOTNCIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI2NSUiIHN0b3AtY29sb3I9IiMwRjE3MkEiIC8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMjA2MTciIC8+DQogICAgPC9yYWRpYWxHcmFkaWVudD4NCiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxvZ29TaGllbGRCb3JkZXIiIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCIgeTI9IjEwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM4QkRGOCIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjNjM2NkYxIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTBCOTgxIiAvPg0KICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgPGxpbmVhckdyYWRpZW50IGlkPSJsb2dvR29sZFNjYWxlcyIgeDE9IjAiIHkxPSIwIiB4Mj0iMTAwIiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZERTA0NyIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0VBQjMwOCIgLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibG9nb1RyaWNvbG9yIiB4MT0iMCIgeTE9IjAiIHgyPSIxMDAiIHkyPSIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkY5OTMzIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI0OCUiIHN0b3AtY29sb3I9IiNGRkZGRkYiIC8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjUyJSIgc3RvcC1jb2xvcj0iI0ZGRkZGRiIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEzODgwOCIgLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICA8L2RlZnM+DQoNCiAgPCEtLSBEZWVwIE9wdGljYWwgTGVucyBCYWNrZ3JvdW5kIC0tPg0KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSJ1cmwoI2xvZ29MZW5zQXVyYSkiIC8+DQoNCiAgPCEtLSBQcmVjaXNpb24gT3V0ZXIgQ2lyY3VsYXIgUmV0aWNsZSBUcmFjayAtLT4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDEiIHN0cm9rZT0iIzMzNDE1NSIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMyIgLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzQiIHN0cm9rZT0iIzFFMjkzQiIgc3Ryb2tlLXdpZHRoPSIxIiAvPg0KDQogIDwhLS0gRXh0ZXJpb3IgUm91bmRlZCBQcm90ZWN0aXZlIFNoaWVsZCAtLT4NCiAgPHBhdGgNCiAgICBkPSJNNTAgMTQgTDc4IDI0IEM3OCA1MiA1MCA4MiA1MCA4MiBDNTAgODIgMjIgNTIgMjIgMjQgWiINCiAgICBmaWxsPSIjMEYxNzJBIg0KICAgIGZpbGwtb3BhY2l0eT0iMC44NSINCiAgICBzdHJva2U9InVybCgjbG9nb1NoaWVsZEJvcmRlcikiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCINCiAgLz4NCg0KICA8IS0tIE9wdGljYWwgU2Nhbm5lciBSZXRpY2xlIEJyYWNrZXRzIChDeWFuKSAtLT4NCiAgPHBhdGggZD0iTTMxIDMyIEgzOCBNMzEgMzIgVjM5IiBzdHJva2U9IiMzOEJERjgiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+DQogIDxwYXRoIGQ9Ik02OSAzMiBINjIgTTY5IDMyIFYzOSIgc3Ryb2tlPSIjMzhCREY4IiBzdHJva2Utd2lkdGg9IjIuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPg0KICA8cGF0aCBkPSJNMzEgNjIgSDM4IE0zMSA2MiBWNTUiIHN0cm9rZT0iIzM4QkRGOCIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4NCiAgPHBhdGggZD0iTTY5IDYyIEg2MiBNNjkgNjIgVjU1IiBzdHJva2U9IiMzOEJERjgiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+DQoNCiAgPCEtLSBHb2xkZW4gU2NhbGVzIG9mIEp1c3RpY2UgKExlZ2FsIE1ldHJvbG9neSBBY3QsIDIwMDkpIC0tPg0KICA8cGF0aCBkPSJNMzcgNDAgSDYzIiBzdHJva2U9InVybCgjbG9nb0dvbGRTY2FsZXMpIiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPg0KICA8cGF0aCBkPSJNNTAgMzQgVjQ2IiBzdHJva2U9InVybCgjbG9nb0dvbGRTY2FsZXMpIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNCIgcj0iMi4yIiBmaWxsPSIjRkRFMDQ3IiAvPg0KDQogIDwhLS0gTGVmdCAmIFJpZ2h0IFNjYWxlIFBhbnMgLS0+DQogIDxwYXRoIGQ9Ik0zNSA0MSBMMzIgNDcgSDQyIEwzOSA0MSBaIiBmaWxsPSIjRkRFMDQ3IiBmaWxsLW9wYWNpdHk9IjAuOCIgLz4NCiAgPHBhdGggZD0iTTY1IDQxIEw2MiA0NyBINzIgTDY5IDQxIFoiIGZpbGw9IiNGREUwNDciIGZpbGwtb3BhY2l0eT0iMC44IiAvPg0KDQogIDwhLS0gQ2VudHJhbCBWZXJpZmllZCBTdGF0dXRvcnkgQ2hlY2ttYXJrIFNlYWwgKFJ1bGUgNiAvIEZTU0FJKSAtLT4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1NyIgcj0iMTAiIGZpbGw9IiMxMEI5ODEiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIxLjgiIC8+DQogIDxwYXRoDQogICAgZD0iTTQ1LjUgNTcgTDQ4LjggNjAuMyBMNTUgNTMuOCINCiAgICBzdHJva2U9IiNGRkZGRkYiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIg0KICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiDQogIC8+DQoNCiAgPCEtLSBTb3ZlcmVpZ24gSW5kaWFuIFRyaWNvbG9yIEJhc2UgQXJjIC0tPg0KICA8cGF0aA0KICAgIGQ9Ik0zNyA3MiBRNTAgNzggNjMgNzIiDQogICAgc3Ryb2tlPSJ1cmwoI2xvZ29Ucmljb2xvcikiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIg0KICAgIGZpbGw9Im5vbmUiDQogIC8+DQo8L3N2Zz4NCg==" alt="Label Lens AI" />
+      <div class="brand-text">
+        <h1>QUANTIFIABLE IMPACT & STRATEGIC BENEFITS <span class="badge">ROI Analysis</span></h1>
+        <p>Holistic Social, Economic, Administrative and Environmental Outcomes for Bharat</p>
+      </div>
+    </div>
+    <div class="meta-right">
+      <div class="meta-pill">
+        <span>🇮🇳 Serving 1.4 Billion Consumers & Enforcement Ecosystem</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card sc-1">
+      <div class="sc-icon">⚡</div>
+      <div>
+        <div class="sc-val">98.4% Faster</div>
+        <div class="sc-label">3.2s vs 25 min manual caliper audit</div>
+      </div>
+    </div>
+    <div class="stat-card sc-2">
+      <div class="sc-icon">💰</div>
+      <div>
+        <div class="sc-val">₹25k - ₹50k</div>
+        <div class="sc-label">Automated Sec 36 LMPC penalty assessment</div>
+      </div>
+    </div>
+    <div class="stat-card sc-3">
+      <div class="sc-icon">🌐</div>
+      <div>
+        <div class="sc-val">10 Languages</div>
+        <div class="sc-label">Pan-India vernacular inclusion</div>
+      </div>
+    </div>
+    <div class="stat-card sc-4">
+      <div class="sc-icon">🔒</div>
+      <div>
+        <div class="sc-val">100% Admissible</div>
+        <div class="sc-label">SHA-256 tamper-proof Sec 65B dockets</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillars-grid">
+
+    <!-- Pillar 1 -->
+    <div class="pillar-card p-1">
+      <div class="p-head">
+        <span class="p-tag">Social Welfare</span>
+        <div class="p-title">Empowerment of 1.4 Billion Consumers</div>
+      </div>
+      <ul class="p-list">
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Protection Against Hidden Shrinkflation:</strong> Detects reduced product quantities sold at identical price points via instant Unit Sale Price (USP) validation.</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Food Safety & Allergen Security:</strong> Eliminates critical health hazards by verifying 8 major allergens and detecting expired/altered shelf dates.</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Vernacular Inclusivity for Tier-2/3 & Rural Citizens:</strong> Voice-guided scans and plain-language compliance scorecards in 10 regional Indian languages.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Pillar 2 -->
+    <div class="pillar-card p-2">
+      <div class="p-head">
+        <span class="p-tag">Economic Impact</span>
+        <div class="p-title">Fiscal Recovery & Fair Market Integrity</div>
+      </div>
+      <ul class="p-list">
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>State Exchequer Revenue Recovery:</strong> Multi-crore compounding penalty recovery under Section 36 LMPC Act (₹25,000 for 1st offense, ₹50,000 for repeats).</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Consumer Surplus Preservation:</strong> Protects household budgets from non-standard weight fraud and misleading promotional front-of-pack claims.</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Protection for Honest FMCG Brands:</strong> Creates a transparent, level playing field by penalizing counterfeit and non-compliant grey market goods.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Pillar 3 -->
+    <div class="pillar-card p-3">
+      <div class="p-head">
+        <span class="p-tag">Administrative ROI</span>
+        <div class="p-title">Enforcement Acceleration & Zero Backlog</div>
+      </div>
+      <ul class="p-list">
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>10x Inspector Productivity:</strong> Field officers inspect entire supermarket aisles in minutes with instant digital violation logging and evidence capture.</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Zero Defective Grievance Rejections:</strong> 1-Click auto-compiled petitions ensure 100% legal grounding, preventing dismissals at NCH, FoSCoS, and CPGRAMS.</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Directorate Macro-Intelligence:</strong> Central administrative analytics identify systemic repeat offenders across state jurisdictions in real time.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Pillar 4 -->
+    <div class="pillar-card p-4">
+      <div class="p-head">
+        <span class="p-tag">Environmental Impact</span>
+        <div class="p-title">Paperless Governance & Carbon Reduction</div>
+      </div>
+      <ul class="p-list">
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>100% Digital Inspection Dockets:</strong> Eliminates physical paper inspection challans, notices, and postal court filings through digital dockets.</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Reduction in Physical Travel Footprint:</strong> Pre-market digital label verification prevents physical packaging seizure, disposal, and transit emissions.</div>
+        </li>
+        <li>
+          <div class="p-bullet">✓</div>
+          <div><strong>Sustainable Packaging Compliance:</strong> Verifies plastic waste management registration and recyclable material declaration compliance.</div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-strip">
+    <div style="color: #CBD5E1;">
+      <strong style="color: #10B981;">Measurable Transformation:</strong> Transforming India from reactive manual inspection to proactive, automated statutory governance.
+    </div>
+    <div style="color: #94A3B8; font-size: 12px;">
+      SIH 2026 Problem Statement 26034 • Ministry of Consumer Affairs, Food & Public Distribution
+    </div>
+  </div>
+
+</body>
+</html>

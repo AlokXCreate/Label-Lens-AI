@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  body { width: 1920px; height: 1080px; background: #070B14; color: #F8FAFC; overflow: hidden; display: flex; flex-direction: column; padding: 36px 48px; position: relative; }
+  .bg-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px); background-size: 32px 32px; pointer-events: none; }
+  
+  .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1E293B; padding-bottom: 18px; margin-bottom: 22px; position: relative; z-index: 1; }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand img { width: 54px; height: 54px; }
+  .brand-text h1 { font-size: 26px; font-weight: 800; color: #FFFFFF; display: flex; align-items: center; gap: 12px; }
+  .brand-text h1 span.highlight { background: linear-gradient(135deg, #F59E0B, #EC4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); text-transform: uppercase; }
+  .brand-text p { font-size: 13.5px; color: #94A3B8; margin-top: 3px; }
+  
+  .meta-right { text-align: right; }
+  .meta-pill { display: inline-flex; align-items: center; gap: 8px; background: #0F172A; border: 1px solid #334155; padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #E2E8F0; }
+
+  .matrix-wrapper { flex: 1; position: relative; z-index: 1; display: flex; flex-direction: column; background: rgba(15, 23, 42, 0.85); border: 1px solid #1E293B; border-radius: 14px; overflow: hidden; backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+
+  table { width: 100%; height: 100%; border-collapse: collapse; text-align: left; }
+  thead th { background: #0F172A; padding: 16px 20px; font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; border-bottom: 2px solid #1E293B; color: #94A3B8; }
+  thead th.th-highlight { background: rgba(56, 189, 248, 0.1); color: #38BDF8; border-bottom: 2px solid #38BDF8; }
+
+  tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 12px 20px; font-size: 13px; color: #CBD5E1; vertical-align: middle; }
+  tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+
+  .param-title { font-weight: 700; color: #FFFFFF; font-size: 13.5px; }
+  .param-sub { font-size: 11px; color: #64748B; margin-top: 2px; }
+
+  .tag-bad { display: inline-flex; align-items: center; gap: 6px; background: rgba(239, 68, 68, 0.12); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.25); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+  .tag-warn { display: inline-flex; align-items: center; gap: 6px; background: rgba(245, 158, 11, 0.12); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.25); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+  .tag-good { display: inline-flex; align-items: center; gap: 6px; background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.35); padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+
+  .td-highlight { background: rgba(56, 189, 248, 0.05); font-weight: 600; color: #FFFFFF; }
+
+  .footer-strip { margin-top: 16px; padding-top: 14px; border-top: 1px solid #1E293B; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: #64748B; position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <div class="header">
+    <div class="brand">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBmaWxsPSJub25lIj4NCiAgPGRlZnM+DQogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJsb2dvTGVuc0F1cmEiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMUUyOTNCIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI2NSUiIHN0b3AtY29sb3I9IiMwRjE3MkEiIC8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMjA2MTciIC8+DQogICAgPC9yYWRpYWxHcmFkaWVudD4NCiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImxvZ29TaGllbGRCb3JkZXIiIHgxPSIwIiB5MT0iMCIgeDI9IjEwMCIgeTI9IjEwMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzM4QkRGOCIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjNjM2NkYxIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTBCOTgxIiAvPg0KICAgIDwvbGluZWFyR3JhZGllbnQ+DQogICAgPGxpbmVhckdyYWRpZW50IGlkPSJsb2dvR29sZFNjYWxlcyIgeDE9IjAiIHkxPSIwIiB4Mj0iMTAwIiB5Mj0iMCIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPg0KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0ZERTA0NyIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0VBQjMwOCIgLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ibG9nb1RyaWNvbG9yIiB4MT0iMCIgeTE9IjAiIHgyPSIxMDAiIHkyPSIwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+DQogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkY5OTMzIiAvPg0KICAgICAgPHN0b3Agb2Zmc2V0PSI0OCUiIHN0b3AtY29sb3I9IiNGRkZGRkYiIC8+DQogICAgICA8c3RvcCBvZmZzZXQ9IjUyJSIgc3RvcC1jb2xvcj0iI0ZGRkZGRiIgLz4NCiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzEzODgwOCIgLz4NCiAgICA8L2xpbmVhckdyYWRpZW50Pg0KICA8L2RlZnM+DQoNCiAgPCEtLSBEZWVwIE9wdGljYWwgTGVucyBCYWNrZ3JvdW5kIC0tPg0KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIyIiBmaWxsPSJ1cmwoI2xvZ29MZW5zQXVyYSkiIC8+DQoNCiAgPCEtLSBQcmVjaXNpb24gT3V0ZXIgQ2lyY3VsYXIgUmV0aWNsZSBUcmFjayAtLT4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iNDEiIHN0cm9rZT0iIzMzNDE1NSIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMyIgLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzQiIHN0cm9rZT0iIzFFMjkzQiIgc3Ryb2tlLXdpZHRoPSIxIiAvPg0KDQogIDwhLS0gRXh0ZXJpb3IgUm91bmRlZCBQcm90ZWN0aXZlIFNoaWVsZCAtLT4NCiAgPHBhdGgNCiAgICBkPSJNNTAgMTQgTDc4IDI0IEM3OCA1MiA1MCA4MiA1MCA4MiBDNTAgODIgMjIgNTIgMjIgMjQgWiINCiAgICBmaWxsPSIjMEYxNzJBIg0KICAgIGZpbGwtb3BhY2l0eT0iMC44NSINCiAgICBzdHJva2U9InVybCgjbG9nb1NoaWVsZEJvcmRlcikiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCINCiAgLz4NCg0KICA8IS0tIE9wdGljYWwgU2Nhbm5lciBSZXRpY2xlIEJyYWNrZXRzIChDeWFuKSAtLT4NCiAgPHBhdGggZD0iTTMxIDMyIEgzOCBNMzEgMzIgVjM5IiBzdHJva2U9IiMzOEJERjgiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+DQogIDxwYXRoIGQ9Ik02OSAzMiBINjIgTTY5IDMyIFYzOSIgc3Ryb2tlPSIjMzhCREY4IiBzdHJva2Utd2lkdGg9IjIuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPg0KICA8cGF0aCBkPSJNMzEgNjIgSDM4IE0zMSA2MiBWNTUiIHN0cm9rZT0iIzM4QkRGOCIgc3Ryb2tlLXdpZHRoPSIyLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4NCiAgPHBhdGggZD0iTTY5IDYyIEg2MiBNNjkgNjIgVjU1IiBzdHJva2U9IiMzOEJERjgiIHN0cm9rZS13aWR0aD0iMi4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiIC8+DQoNCiAgPCEtLSBHb2xkZW4gU2NhbGVzIG9mIEp1c3RpY2UgKExlZ2FsIE1ldHJvbG9neSBBY3QsIDIwMDkpIC0tPg0KICA8cGF0aCBkPSJNMzcgNDAgSDYzIiBzdHJva2U9InVybCgjbG9nb0dvbGRTY2FsZXMpIiBzdHJva2Utd2lkdGg9IjIuNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiAvPg0KICA8cGF0aCBkPSJNNTAgMzQgVjQ2IiBzdHJva2U9InVybCgjbG9nb0dvbGRTY2FsZXMpIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgLz4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSIzNCIgcj0iMi4yIiBmaWxsPSIjRkRFMDQ3IiAvPg0KDQogIDwhLS0gTGVmdCAmIFJpZ2h0IFNjYWxlIFBhbnMgLS0+DQogIDxwYXRoIGQ9Ik0zNSA0MSBMMzIgNDcgSDQyIEwzOSA0MSBaIiBmaWxsPSIjRkRFMDQ3IiBmaWxsLW9wYWNpdHk9IjAuOCIgLz4NCiAgPHBhdGggZD0iTTY1IDQxIEw2MiA0NyBINzIgTDY5IDQxIFoiIGZpbGw9IiNGREUwNDciIGZpbGwtb3BhY2l0eT0iMC44IiAvPg0KDQogIDwhLS0gQ2VudHJhbCBWZXJpZmllZCBTdGF0dXRvcnkgQ2hlY2ttYXJrIFNlYWwgKFJ1bGUgNiAvIEZTU0FJKSAtLT4NCiAgPGNpcmNsZSBjeD0iNTAiIGN5PSI1NyIgcj0iMTAiIGZpbGw9IiMxMEI5ODEiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIxLjgiIC8+DQogIDxwYXRoDQogICAgZD0iTTQ1LjUgNTcgTDQ4LjggNjAuMyBMNTUgNTMuOCINCiAgICBzdHJva2U9IiNGRkZGRkYiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIg0KICAgIHN0cm9rZS1saW5lam9pbj0icm91bmQiDQogIC8+DQoNCiAgPCEtLSBTb3ZlcmVpZ24gSW5kaWFuIFRyaWNvbG9yIEJhc2UgQXJjIC0tPg0KICA8cGF0aA0KICAgIGQ9Ik0zNyA3MiBRNTAgNzggNjMgNzIiDQogICAgc3Ryb2tlPSJ1cmwoI2xvZ29Ucmljb2xvcikiDQogICAgc3Ryb2tlLXdpZHRoPSIyLjQiDQogICAgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIg0KICAgIGZpbGw9Im5vbmUiDQogIC8+DQo8L3N2Zz4NCg==" alt="Label Lens AI" />
+      <div class="brand-text">
+        <h1>INNOVATION & COMPETITIVE NOVELTY MATRIX <span class="badge">Uniqueness Audit</span></h1>
+        <p>Comparative Benchmarking: Traditional Inspection vs Generic Barcode Apps vs Label Lens AI</p>
+      </div>
+    </div>
+    <div class="meta-right">
+      <div class="meta-pill">
+        <span>🏆 Evaluated against MoCAF&PD Problem Statement 26034 Requirements</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="matrix-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 26%;">Evaluation Parameter</th>
+          <th style="width: 24%;">Traditional Field Inspection</th>
+          <th style="width: 24%;">Generic Barcode / OCR Apps</th>
+          <th style="width: 26%;" class="th-highlight">Label Lens AI (Our Solution)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="param-title">Audit Turnaround Speed</div>
+            <div class="param-sub">Time taken to audit single packaged SKU</div>
+          </td>
+          <td><span class="tag-bad">⏳ 20 - 30 Minutes</span> (Manual calipers)</td>
+          <td><span class="tag-warn">⚡ 2 - 5 Seconds</span> (Lookup only)</td>
+          <td class="td-highlight"><span class="tag-good">🚀 3.2 Seconds End-to-End</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">Physical Label Verification</div>
+            <div class="param-sub">Audit of actual on-pack printed text</div>
+          </td>
+          <td><span class="tag-warn">👁️ Subjective Human Eye</span> (Error-prone)</td>
+          <td><span class="tag-bad">❌ None</span> (Relies on external DB)</td>
+          <td class="td-highlight"><span class="tag-good">✨ Multimodal Vision AI + OCR</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">PCR Table-I Font Size Compliance</div>
+            <div class="param-sub">Verification of numeral height vs PDP area</div>
+          </td>
+          <td><span class="tag-bad">❌ Manual micrometer estimate</span></td>
+          <td><span class="tag-bad">❌ Not Supported</span></td>
+          <td class="td-highlight"><span class="tag-good">📐 Automated PDP Area vs Font Matrix</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">FSSAI 14-Digit Checksum</div>
+            <div class="param-sub">Detection of fraudulent/spoofed license numbers</div>
+          </td>
+          <td><span class="tag-bad">❌ Manual Portal Lookup</span></td>
+          <td><span class="tag-bad">❌ Absent</span></td>
+          <td class="td-highlight"><span class="tag-good">🛡️ Algorithmic Modulo-11 Checksum</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">Unit Sale Price (USP) Audit</div>
+            <div class="param-sub">Mathematical detection of hidden shrinkflation</div>
+          </td>
+          <td><span class="tag-warn">⚠️ Manual calculator check</span></td>
+          <td><span class="tag-bad">❌ Not Verified</span></td>
+          <td class="td-highlight"><span class="tag-good">💰 Programmatic USP Verification</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">Section 36 LMPC Penalties</div>
+            <div class="param-sub">Computation of compounding fine liability</div>
+          </td>
+          <td><span class="tag-warn">⚠️ Post-inspection legal drafting</span></td>
+          <td><span class="tag-bad">❌ Absent</span></td>
+          <td class="td-highlight"><span class="tag-good">⚖️ Instant ₹25,000 - ₹50,000 Calculation</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">1-Click Government Redressal</div>
+            <div class="param-sub">Direct dispatch to FSSAI, FoSCoS, NCH 1915</div>
+          </td>
+          <td><span class="tag-bad">❌ Physical paper submission</span></td>
+          <td><span class="tag-bad">❌ Not Supported</span></td>
+          <td class="td-highlight"><span class="tag-good">🏛️ 1-Click Multi-Channel Dispatch</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">Cryptographic Evidence Integrity</div>
+            <div class="param-sub">Tamper-proof court admissibility (Sec 65B)</div>
+          </td>
+          <td><span class="tag-warn">⚠️ Paper Challan</span> (Easily contested)</td>
+          <td><span class="tag-bad">❌ None</span></td>
+          <td class="td-highlight"><span class="tag-good">🔒 SHA-256 Hash + Digital Seal</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">Vernacular Language Inclusion</div>
+            <div class="param-sub">Pan-India citizen accessibility</div>
+          </td>
+          <td><span class="tag-warn">⚠️ English & Hindi only</span></td>
+          <td><span class="tag-warn">⚠️ English only</span></td>
+          <td class="td-highlight"><span class="tag-good">🌐 10 Indian Regional Languages</span></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="param-title">Working Prototype Status</div>
+            <div class="param-sub">Readiness of current software & deployment</div>
+          </td>
+          <td><span class="tag-bad">N/A</span></td>
+          <td><span class="tag-warn">Commercial / Closed</span></td>
+          <td class="td-highlight"><span class="tag-good">📱 Deployed Live Web + Native APK (v1.1.0)</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer-strip">
+    <div style="color: #CBD5E1;">
+      <strong style="color: #38BDF8;">Conclusion:</strong> Label Lens AI is the only system combining physical label vision extraction, deterministic statutory jurisprudence, and direct government grievance filing.
+    </div>
+    <div style="color: #94A3B8; font-size: 12px;">
+      SIH 2026 Problem Statement 26034 • Ministry of Consumer Affairs, Food & Public Distribution
+    </div>
+  </div>
+
+</body>
+</html>

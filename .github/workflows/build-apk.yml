@@ -55,10 +55,10 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.1.0
-          name: "Label Lens AI v1.1.0 (Official APK Release)"
+          tag_name: v1.2.0
+          name: "Label Lens AI v1.2.0 (Official APK Release)"
           body: |
-            ### 🔍 Label Lens AI v1.1.0 (Official Release)
+            ### 🔍 Label Lens AI v1.2.0 (Official Release)
             **Smart India Hackathon 2026 (Problem Statement 26034)**
             *Department of Consumer Affairs, MoCAF&PD, Government of India*
 
