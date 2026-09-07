@@ -235,7 +235,7 @@ export const CreateProfilePage: React.FC<CreateProfilePageProps> = ({
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  placeholder="e.g. Alok"
+                  placeholder="e.g. Masira"
                   required
                   className="w-full bg-transparent px-3 py-2.5 text-white outline-none font-medium"
                 />

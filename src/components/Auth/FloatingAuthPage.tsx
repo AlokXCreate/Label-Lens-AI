@@ -99,10 +99,10 @@ export const FloatingAuthPage: React.FC<FloatingAuthPageProps> = ({
       } else {
         const demoEmail =
           targetRole === 'admin'
-            ? 'admin.directorate@doca.gov.in'
+            ? 'nikita.directorate@doca.gov.in'
             : targetRole === 'inspector'
-            ? 'inspector.lmpc.pune@maharashtra.gov.in'
-            : 'alok.consumer.safety@gmail.com';
+            ? 'shreya.lm.inspector@maharashtra.gov.in'
+            : 'masira.consumer.safety@gmail.com';
 
         const user = await signInWithGoogle(demoEmail);
         onAuthSuccess(user);
@@ -252,7 +252,7 @@ export const FloatingAuthPage: React.FC<FloatingAuthPageProps> = ({
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="e.g. Alok Kumar"
+                  placeholder="e.g. Masira Mulani"
                   className="w-full bg-transparent px-3 py-2.5 text-xs text-white placeholder-slate-500 outline-none font-medium"
                 />
               </div>

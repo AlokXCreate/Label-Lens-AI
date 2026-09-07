@@ -11,25 +11,25 @@ interface GoogleSignInModalProps {
 
 const PRESET_GOOGLE_ACCOUNTS = [
   {
-    name: 'Alok Kumar',
-    email: 'alok.consumer.safety@gmail.com',
+    name: 'Masira Mulani',
+    email: 'masira.consumer.safety@gmail.com',
     roleLabel: 'Citizen Complainant / Consumer Lead',
     avatarBg: 'bg-blue-600',
-    initial: 'A'
+    initial: 'M'
   },
   {
-    name: 'Pooja Deshmukh',
-    email: 'mumbai.lm.inspector@maharashtra.gov.in',
+    name: 'Shreya Ombale',
+    email: 'shreya.lm.inspector@maharashtra.gov.in',
     roleLabel: 'LMPC Legal Metrology Officer',
     avatarBg: 'bg-emerald-600',
-    initial: 'P'
+    initial: 'S'
   },
   {
-    name: 'Dr. Rajesh Sharma',
-    email: 'admin.directorate@doca.gov.in',
+    name: 'Nikita Shravani',
+    email: 'nikita.directorate@doca.gov.in',
     roleLabel: 'Director (DoCA / MoCAF&PD)',
     avatarBg: 'bg-purple-600',
-    initial: 'R'
+    initial: 'N'
   }
 ];
 

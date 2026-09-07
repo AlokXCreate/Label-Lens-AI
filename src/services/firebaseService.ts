@@ -81,8 +81,8 @@ initFirebaseClient();
 const SEED_USERS: UserProfile[] = [
   {
     uid: 'usr_admin_001',
-    email: 'admin.directorate@doca.gov.in',
-    displayName: 'Dr. Rajesh Sharma (Director)',
+    email: 'nikita.directorate@doca.gov.in',
+    displayName: 'Nikita Shravani (Director)',
     role: 'admin',
     authProvider: 'google',
     phone: '+91 98110 99887',
@@ -95,8 +95,8 @@ const SEED_USERS: UserProfile[] = [
   },
   {
     uid: 'usr_insp_002',
-    email: 'mumbai.lm.inspector@maharashtra.gov.in',
-    displayName: 'Pooja Deshmukh (Sr. Legal Metrology Officer)',
+    email: 'shreya.lm.inspector@maharashtra.gov.in',
+    displayName: 'Shreya Ombale (Sr. Legal Metrology Officer)',
     role: 'inspector',
     authProvider: 'google',
     phone: '+91 98220 54321',
@@ -109,16 +109,16 @@ const SEED_USERS: UserProfile[] = [
   },
   {
     uid: 'usr_guest_google_01',
-    email: 'alok.consumer.safety@gmail.com',
-    displayName: 'Alok Kumar',
-    role: 'admin',
+    email: 'masira.consumer.safety@gmail.com',
+    displayName: 'Masira Mulani',
+    role: 'consumer',
     authProvider: 'google',
     phone: '+91 98200 12345',
     address: 'Flat 402, Shivam Enclave, Senapati Bapat Road, Pune',
     currentLocation: 'Pune, Maharashtra',
     institutionName: 'Symbiosis Law & Technology Institute',
-    linkedInUrl: 'https://linkedin.com/in/alok-kumar-safety',
-    githubUrl: 'https://github.com/alok-safety',
+    linkedInUrl: 'https://linkedin.com/in/masira-mulani',
+    githubUrl: 'https://github.com/masira-mulani',
     portfolioUrl: 'https://labellens.gov.in',
     createdAt: '2026-02-20T11:00:00.000Z',
     lastLoginAt: new Date().toISOString(),
@@ -190,7 +190,7 @@ export async function signInWithGoogle(emailHint?: string, nameHint?: string): P
   // Seamless Dual-Mode Gmail Sign-In
   const gmailAddress = (emailHint && emailHint.includes('@'))
     ? emailHint.trim().toLowerCase()
-    : 'alok.consumer.safety@gmail.com';
+    : 'masira.consumer.safety@gmail.com';
 
   const existingUsers = getStoredUsers();
   let user = existingUsers.find(u => u.email.toLowerCase() === gmailAddress);

@@ -9,14 +9,14 @@ const APP_SETTINGS_KEY = 'label_lens_app_settings';
 
 export const DEFAULT_USER_PROFILE: UserProfile = {
   uid: 'usr_guest_google_01',
-  email: 'alok.consumer.safety@gmail.com',
-  displayName: 'Alok Kumar',
+  email: 'masira.consumer.safety@gmail.com',
+  displayName: 'Masira Mulani',
   phone: '+91 98200 12345',
   address: 'Flat 402, Shivam Enclave, Senapati Bapat Road, Pune',
   currentLocation: 'Pune, Maharashtra',
   institutionName: 'Symbiosis Law & Technology Institute',
-  linkedInUrl: 'https://linkedin.com/in/alok-kumar-safety',
-  githubUrl: 'https://github.com/alok-safety',
+  linkedInUrl: 'https://linkedin.com/in/masira-mulani',
+  githubUrl: 'https://github.com/masira-mulani',
   portfolioUrl: 'https://labellens.gov.in'
 };
 
