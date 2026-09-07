@@ -260,7 +260,7 @@ export const App: React.FC = () => {
   // PHASE 3: REGULATORY COMPLIANCE WORKSPACE (DESKTOP WEB & MOBILE APK)
   // ==========================================================================
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
       
       {/* SEPARATE VERSION 1: STANDALONE MOBILE APK APPLICATION */}
       {isApkMode ? (
@@ -337,27 +337,27 @@ export const App: React.FC = () => {
           </main>
 
           {/* Footer with Enterprise & Statutory Links */}
-          <footer className="border-t border-slate-200 bg-white py-6 mt-12">
-            <div className="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-2">
+          <footer className="border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6 mt-12 transition-colors">
+            <div className="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 dark:text-slate-400 space-y-2">
               
-              <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] font-semibold text-slate-600">
+              <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] font-semibold text-slate-600 dark:text-slate-400">
                 <button
                   onClick={() => setIsAdminPanelOpen(true)}
-                  className="hover:text-brand-700 hover:underline flex items-center gap-1 cursor-pointer"
+                  className="hover:text-brand-700 dark:hover:text-brand-400 hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   Directorate Admin Command Center
                 </button>
                 <span>•</span>
                 <button
                   onClick={() => setIsPermissionsOpen(true)}
-                  className="hover:text-brand-700 hover:underline flex items-center gap-1 cursor-pointer"
+                  className="hover:text-brand-700 dark:hover:text-brand-400 hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   Hardware & Permissions Hub
                 </button>
                 <span>•</span>
                 <button
                   onClick={() => setIsPrivacyModalOpen(true)}
-                  className="hover:text-brand-700 hover:underline flex items-center gap-1 cursor-pointer"
+                  className="hover:text-brand-700 dark:hover:text-brand-400 hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   Enterprise Privacy & Security Charter
                 </button>
@@ -366,16 +366,16 @@ export const App: React.FC = () => {
                   href="https://consumeraffairs.nic.in"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-brand-700 hover:underline"
+                  className="hover:text-brand-700 dark:hover:text-brand-400 hover:underline"
                 >
                   Dept. of Consumer Affairs (MoCAF&PD)
                 </a>
               </div>
 
-              <p className="font-semibold text-slate-700">
+              <p className="font-semibold text-slate-700 dark:text-slate-200">
                 Label Lens AI — Developed for Smart India Hackathon (SIH 2026 Problem Statement 26034)
               </p>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-400 dark:text-slate-500">
                 Grounded in Legal Metrology Act, 2009 (PCR 2026), FSSAI Labelling Regulations, and backed by Google Cloud & Firebase.
               </p>
             </div>

@@ -1,55 +1,75 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
   <defs>
-    <linearGradient id="logoBgGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#0F172A" />
-      <stop offset="100%" stop-color="#1E1B4B" />
+    <radialGradient id="logoLensAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="65%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+    <linearGradient id="logoShieldBorder" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="50%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#10B981" />
     </linearGradient>
-    <linearGradient id="shieldGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#4338CA" />
-      <stop offset="50%" stop-color="#3730A3" />
-      <stop offset="100%" stop-color="#059669" />
+    <linearGradient id="logoGoldScales" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#EAB308" />
     </linearGradient>
-    <linearGradient id="tricolorRibbon" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+    <linearGradient id="logoTricolor" x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#FF9933" />
-      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="48%" stop-color="#FFFFFF" />
+      <stop offset="52%" stop-color="#FFFFFF" />
       <stop offset="100%" stop-color="#138808" />
     </linearGradient>
   </defs>
 
-  <!-- Background Base -->
-  <rect width="100" height="100" rx="24" fill="url(#logoBgGrad)" />
+  <!-- Deep Optical Lens Background -->
+  <rect width="100" height="100" rx="22" fill="url(#logoLensAura)" />
 
-  <!-- Protective Outer Shield -->
+  <!-- Precision Outer Circular Reticle Track -->
+  <circle cx="50" cy="50" r="41" stroke="#334155" stroke-width="1.2" stroke-dasharray="3 3" />
+  <circle cx="50" cy="50" r="34" stroke="#1E293B" stroke-width="1" />
+
+  <!-- Exterior Rounded Protective Shield -->
   <path
-    d="M50 12 L78 22 C78 52 50 82 50 82 C50 82 22 52 22 22 Z"
-    fill="url(#shieldGrad)"
-    stroke="#FFFFFF"
-    stroke-width="2.5"
+    d="M50 14 L78 24 C78 52 50 82 50 82 C50 82 22 52 22 24 Z"
+    fill="#0F172A"
+    fill-opacity="0.85"
+    stroke="url(#logoShieldBorder)"
+    stroke-width="2.4"
     stroke-linejoin="round"
   />
 
-  <!-- Scanner Reticle Corner Focus Brackets -->
-  <path d="M30 32 H38 M30 32 V40" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
-  <path d="M70 32 H62 M70 32 V40" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
-  <path d="M30 62 H38 M30 62 V54" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
-  <path d="M70 62 H62 M70 62 V54" stroke="#FDE047" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Optical Scanner Reticle Brackets (Cyan) -->
+  <path d="M31 32 H38 M31 32 V39" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round" />
+  <path d="M69 32 H62 M69 32 V39" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round" />
+  <path d="M31 62 H38 M31 62 V55" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round" />
+  <path d="M69 62 H62 M69 62 V55" stroke="#38BDF8" stroke-width="2.2" stroke-linecap="round" />
 
-  <!-- Scales of Justice Beam -->
-  <path d="M38 42 H62" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" />
-  <path d="M50 36 V48" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" />
-  <path d="M36 43 L33 50 H43 L40 43 Z" fill="#F8FAFC" opacity="0.95" />
-  <path d="M64 43 L61 50 H71 L68 43 Z" fill="#F8FAFC" opacity="0.95" />
+  <!-- Golden Scales of Justice (Legal Metrology Act, 2009) -->
+  <path d="M37 40 H63" stroke="url(#logoGoldScales)" stroke-width="2.4" stroke-linecap="round" />
+  <path d="M50 34 V46" stroke="url(#logoGoldScales)" stroke-width="2" stroke-linecap="round" />
+  <circle cx="50" cy="34" r="2.2" fill="#FDE047" />
 
-  <!-- Verified Checkmark Badge -->
-  <circle cx="50" cy="58" r="11" fill="#10B981" stroke="#FFFFFF" stroke-width="2" />
+  <!-- Left & Right Scale Pans -->
+  <path d="M35 41 L32 47 H42 L39 41 Z" fill="#FDE047" fill-opacity="0.8" />
+  <path d="M65 41 L62 47 H72 L69 41 Z" fill="#FDE047" fill-opacity="0.8" />
+
+  <!-- Central Verified Statutory Checkmark Seal (Rule 6 / FSSAI) -->
+  <circle cx="50" cy="57" r="10" fill="#10B981" stroke="#FFFFFF" stroke-width="1.8" />
   <path
-    d="M45 58 L48.5 61.5 L55 54.5"
+    d="M45.5 57 L48.8 60.3 L55 53.8"
     stroke="#FFFFFF"
-    stroke-width="2.5"
+    stroke-width="2.4"
     stroke-linecap="round"
     stroke-linejoin="round"
   />
 
-  <!-- Subtle Indian Tricolor Ribbon -->
-  <path d="M38 74 H62" stroke="url(#tricolorRibbon)" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Sovereign Indian Tricolor Base Arc -->
+  <path
+    d="M37 72 Q50 78 63 72"
+    stroke="url(#logoTricolor)"
+    stroke-width="2.4"
+    stroke-linecap="round"
+    fill="none"
+  />
 </svg>

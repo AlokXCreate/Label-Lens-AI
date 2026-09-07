@@ -148,10 +148,10 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
 
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[420px] bg-white shadow-2xl border-l border-slate-200 flex flex-col animate-in slide-in-from-right duration-200">
+    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[420px] bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col animate-in slide-in-from-right duration-200 transition-colors">
       
       {/* Header */}
-      <div className="p-4 border-b border-slate-200 bg-gradient-to-r from-brand-700 to-indigo-800 text-white flex items-center justify-between">
+      <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-gradient-to-r from-brand-700 to-indigo-800 text-white flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center backdrop-blur-xs">
             <Bot className="w-5 h-5 text-amber-300" />
@@ -176,7 +176,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
       </div>
 
       {/* Messages Feed */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-50/50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3.5 bg-slate-50/50 dark:bg-slate-950">
         {messages.map(msg => {
           const isUser = msg.sender === 'user';
           return (
@@ -194,13 +194,13 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
                 className={`max-w-[82%] rounded-2xl p-3 text-xs sm:text-sm leading-relaxed shadow-xs ${
                   isUser
                     ? 'bg-brand-600 text-white rounded-tr-xs'
-                    : 'bg-white text-slate-800 border border-slate-200/80 rounded-tl-xs'
+                    : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200/80 dark:border-slate-700 rounded-tl-xs'
                 }`}
               >
                 {/* File Attachment Pill */}
                 {msg.attachment && (
                   <div className={`mb-2 p-2 rounded-lg flex items-center gap-2 text-xs font-semibold ${
-                    isUser ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-700'
+                    isUser ? 'bg-white/15 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200'
                   }`}>
                     {msg.attachment.type.includes('image') ? (
                       <ImageIcon className="w-4 h-4 shrink-0" />
@@ -212,7 +212,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
                 )}
 
                 <div className="whitespace-pre-wrap">{msg.text}</div>
-                <div className={`text-[9px] mt-1 text-right ${isUser ? 'text-white/70' : 'text-slate-400'}`}>
+                <div className={`text-[9px] mt-1 text-right ${isUser ? 'text-white/70' : 'text-slate-400 dark:text-slate-500'}`}>
                   {msg.timestamp}
                 </div>
               </div>
@@ -237,14 +237,14 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
 
       {/* Attachment Preview if selected */}
       {attachedFile && (
-        <div className="px-4 py-2 bg-slate-100 border-t border-slate-200 flex items-center justify-between text-xs">
+        <div className="px-4 py-2 bg-slate-100 dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs">
           <div className="flex items-center gap-2 truncate">
-            <Paperclip className="w-3.5 h-3.5 text-brand-600" />
-            <span className="font-semibold text-slate-700 truncate">{attachedFile.name}</span>
+            <Paperclip className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+            <span className="font-semibold text-slate-700 dark:text-slate-200 truncate">{attachedFile.name}</span>
           </div>
           <button
             onClick={() => setAttachedFile(null)}
-            className="text-slate-400 hover:text-slate-600 p-0.5"
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-0.5"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -252,7 +252,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
       )}
 
       {/* Input Form */}
-      <div className="p-3 border-t border-slate-200 bg-white">
+      <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -263,7 +263,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="p-2 rounded-xl text-slate-500 hover:text-brand-600 hover:bg-slate-100 transition"
+            className="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
             title="Attach packaging photo or document"
           >
             <Paperclip className="w-4 h-4" />
@@ -281,7 +281,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Ask legal questions or describe label issues..."
-            className="flex-1 text-xs sm:text-sm py-2 px-3 rounded-xl border border-slate-200 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 outline-none"
+            className="flex-1 text-xs sm:text-sm py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-brand-500 focus:ring-2 focus:ring-brand-100 dark:focus:ring-brand-900/40 outline-none"
           />
 
           <button

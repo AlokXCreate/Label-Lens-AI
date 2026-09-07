@@ -115,24 +115,24 @@ export const ExportBar: React.FC<ExportBarProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-5 space-y-4">
+    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm p-4 sm:p-5 space-y-4 transition-colors">
       
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-brand-50 text-brand-700 flex items-center justify-center font-bold">
-              <Download className="w-4 h-4 text-brand-600" />
+            <div className="w-7 h-7 rounded-lg bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-400 flex items-center justify-center font-bold border border-brand-200/50 dark:border-brand-800/60">
+              <Download className="w-4 h-4 text-brand-600 dark:text-brand-400" />
             </div>
-            <h3 className="font-extrabold text-sm sm:text-base text-slate-900 tracking-tight">
+            <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100 tracking-tight">
               {t('exportDossier')}
             </h3>
-            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-extrabold tracking-wide uppercase bg-brand-50 text-brand-700 border border-brand-200 rounded-full">
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 text-[10px] font-extrabold tracking-wide uppercase bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800 rounded-full">
               <Sparkles className="w-3 h-3 text-brand-500" />
               5 Multi-Formats
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Download comprehensive audit reports in PDF, DOCX, interactive HTML with logo, JSON, or plain text
           </p>
         </div>
@@ -142,13 +142,13 @@ export const ExportBar: React.FC<ExportBarProps> = ({
           <button
             onClick={handleGoogleDriveExport}
             disabled={isExportingDrive}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold text-xs transition active:scale-95 disabled:opacity-50 shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 font-bold text-xs transition active:scale-95 disabled:opacity-50 shadow-xs"
             title="Export Dossier directly to Google Drive"
           >
             {isExportingDrive ? (
-              <Loader2 className="w-3.5 h-3.5 text-emerald-600 animate-spin" />
+              <Loader2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 animate-spin" />
             ) : (
-              <Cloud className="w-3.5 h-3.5 text-emerald-600" />
+              <Cloud className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
             )}
             <span>{isExportingDrive ? 'Syncing...' : t('exportToDrive')}</span>
           </button>
@@ -156,10 +156,10 @@ export const ExportBar: React.FC<ExportBarProps> = ({
           {/* Share via Email */}
           <button
             onClick={handleShareEmail}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition active:scale-95 shadow-xs"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs transition active:scale-95 shadow-xs border border-slate-200/60 dark:border-slate-700"
             title="Share Audit via Email"
           >
-            <Mail className="w-3.5 h-3.5 text-slate-600" />
+            <Mail className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
             <span>{t('shareEmail')}</span>
           </button>
         </div>
@@ -167,9 +167,9 @@ export const ExportBar: React.FC<ExportBarProps> = ({
 
       {/* Google Drive Export Success Notification */}
       {driveResultUrl && (
-        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between text-xs animate-in fade-in">
-          <div className="flex items-center gap-2 text-emerald-900 font-semibold">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl flex items-center justify-between text-xs animate-in fade-in">
+          <div className="flex items-center gap-2 text-emerald-900 dark:text-emerald-200 font-semibold">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
             <span>Dossier successfully saved to your Google Drive "Label Lens AI" folder!</span>
           </div>
           <a
@@ -190,19 +190,19 @@ export const ExportBar: React.FC<ExportBarProps> = ({
         {/* PDF Export */}
         <button
           onClick={() => handleExport('pdf')}
-          className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 bg-slate-50/75 hover:bg-rose-50 hover:border-rose-300 hover:text-rose-700 text-slate-700 transition active:scale-95 group shadow-xs"
+          className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/75 dark:bg-slate-800/60 hover:bg-rose-50 dark:hover:bg-rose-950/40 hover:border-rose-300 dark:hover:border-rose-700 hover:text-rose-700 text-slate-700 dark:text-slate-200 transition active:scale-95 group shadow-xs"
           title="Download Print-Ready PDF with executive styling"
         >
           <FileText className="w-5 h-5 text-rose-600 group-hover:scale-110 transition" />
-          <span className="text-xs font-bold mt-1.5 text-slate-900 group-hover:text-rose-700">{t('downloadPdf')}</span>
-          <span className="text-[10px] text-slate-400">Print-Ready (.pdf)</span>
+          <span className="text-xs font-bold mt-1.5 text-slate-900 dark:text-slate-100 group-hover:text-rose-700 dark:group-hover:text-rose-400">{t('downloadPdf')}</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-400">Print-Ready (.pdf)</span>
         </button>
 
         {/* Word Document (.docx) */}
         <button
           onClick={() => handleExport('docx')}
           disabled={isExportingDocx}
-          className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 bg-slate-50/75 hover:bg-sky-50 hover:border-sky-300 hover:text-sky-800 text-slate-700 transition active:scale-95 group shadow-xs disabled:opacity-50"
+          className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/75 dark:bg-slate-800/60 hover:bg-sky-50 dark:hover:bg-sky-950/40 hover:border-sky-300 dark:hover:border-sky-700 hover:text-sky-800 text-slate-700 dark:text-slate-200 transition active:scale-95 group shadow-xs disabled:opacity-50"
           title="Download Editable Word Document (.docx)"
         >
           {isExportingDocx ? (
@@ -210,41 +210,41 @@ export const ExportBar: React.FC<ExportBarProps> = ({
           ) : (
             <FileCode className="w-5 h-5 text-sky-600 group-hover:scale-110 transition" />
           )}
-          <span className="text-xs font-bold mt-1.5 text-slate-900 group-hover:text-sky-800">{t('downloadWord')}</span>
-          <span className="text-[10px] text-slate-400">Editable Brief</span>
+          <span className="text-xs font-bold mt-1.5 text-slate-900 dark:text-slate-100 group-hover:text-sky-800 dark:group-hover:text-sky-300">{t('downloadWord')}</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-400">Editable Brief</span>
         </button>
 
         {/* Branded Interactive HTML with Logo */}
         <button
           onClick={() => handleExport('html')}
-          className="flex flex-col items-center justify-center p-3 rounded-xl border border-brand-300 bg-brand-50/60 hover:bg-brand-100 hover:text-brand-900 text-brand-700 transition active:scale-95 group shadow-xs"
+          className="flex flex-col items-center justify-center p-3 rounded-xl border border-brand-300 dark:border-brand-700 bg-brand-50/60 dark:bg-brand-950/40 hover:bg-brand-100 dark:hover:bg-brand-900/50 hover:text-brand-900 text-brand-700 dark:text-brand-300 transition active:scale-95 group shadow-xs"
           title="Download Branded Application with Logo & App Name (.html)"
         >
           <Globe className="w-5 h-5 text-brand-600 group-hover:scale-110 transition" />
-          <span className="text-xs font-bold mt-1.5 text-brand-900 font-extrabold">{t('downloadHtml')}</span>
-          <span className="text-[10px] text-brand-600 font-bold">App with Logo</span>
+          <span className="text-xs font-bold mt-1.5 text-brand-900 dark:text-brand-200 font-extrabold">{t('downloadHtml')}</span>
+          <span className="text-[10px] text-brand-600 dark:text-brand-400 font-bold">App with Logo</span>
         </button>
 
         {/* Structured JSON */}
         <button
           onClick={() => handleExport('json')}
-          className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 bg-slate-50/75 hover:bg-amber-50 hover:border-amber-300 hover:text-amber-800 text-slate-700 transition active:scale-95 group shadow-xs"
+          className="flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/75 dark:bg-slate-800/60 hover:bg-amber-50 dark:hover:bg-amber-950/40 hover:border-amber-300 dark:hover:border-amber-700 hover:text-amber-800 text-slate-700 dark:text-slate-200 transition active:scale-95 group shadow-xs"
           title="Download Structured JSON for APIs and Databases"
         >
           <Code className="w-5 h-5 text-amber-600 group-hover:scale-110 transition" />
-          <span className="text-xs font-bold mt-1.5 text-slate-900 group-hover:text-amber-800">{t('downloadJson')}</span>
-          <span className="text-[10px] text-slate-400">Schema Verified</span>
+          <span className="text-xs font-bold mt-1.5 text-slate-900 dark:text-slate-100 group-hover:text-amber-800 dark:group-hover:text-amber-300">{t('downloadJson')}</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-400">Schema Verified</span>
         </button>
 
         {/* Plain Text (.txt) */}
         <button
           onClick={() => handleExport('txt')}
-          className="col-span-2 sm:col-span-1 flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 bg-slate-50/75 hover:bg-slate-100 text-slate-700 transition active:scale-95 group shadow-xs"
+          className="col-span-2 sm:col-span-1 flex flex-col items-center justify-center p-3 rounded-xl border border-slate-200 dark:border-slate-700/80 bg-slate-50/75 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition active:scale-95 group shadow-xs"
           title="Download Plain Text for National Consumer Helpline"
         >
           <FileText className="w-5 h-5 text-slate-600 group-hover:scale-110 transition" />
-          <span className="text-xs font-bold mt-1.5 text-slate-900">{t('downloadTxt')}</span>
-          <span className="text-[10px] text-slate-400">Portal / SMS</span>
+          <span className="text-xs font-bold mt-1.5 text-slate-900 dark:text-slate-100">{t('downloadTxt')}</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-400">Portal / SMS</span>
         </button>
 
       </div>

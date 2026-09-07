@@ -195,10 +195,10 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/80 shadow-md overflow-hidden">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-md overflow-hidden transition-colors">
       
       {/* Top Banner / Ingestion Selector */}
-      <div className="p-4 sm:p-5 border-b border-slate-100 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white flex flex-wrap items-center justify-between gap-3">
+      <div className="p-4 sm:p-5 border-b border-slate-100 dark:border-slate-800 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-brand-500/20 border border-brand-400/30 flex items-center justify-center text-brand-300 shadow-sm">
@@ -389,9 +389,9 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
           {/* Thumbnails of multi-angle captured panels */}
           {capturedImages.length > 0 && (
             <div className="flex items-center gap-2 overflow-x-auto pb-1">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">Attached Panels:</span>
+              <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase">Attached Panels:</span>
               {capturedImages.map((img, idx) => (
-                <div key={idx} className="relative w-14 h-14 rounded-lg overflow-hidden border border-slate-300 shrink-0">
+                <div key={idx} className="relative w-14 h-14 rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 shrink-0">
                   <img src={img} alt={`Panel ${idx + 1}`} className="w-full h-full object-cover" />
                   <span className="absolute bottom-0 inset-x-0 bg-black/60 text-[9px] text-white text-center font-bold">
                     P{idx + 1}
@@ -400,7 +400,7 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
               ))}
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="w-14 h-14 rounded-lg border-2 border-dashed border-slate-300 hover:border-brand-500 text-slate-400 hover:text-brand-600 flex items-center justify-center transition shrink-0"
+                className="w-14 h-14 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-400 text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 flex items-center justify-center transition shrink-0"
                 title="Add Another Angle / Label"
               >
                 <Plus className="w-5 h-5" />
@@ -409,12 +409,12 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
           )}
 
           {/* Principal Display Panel (PDP) Area Slider */}
-          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700/80">
             <div className="flex items-center justify-between text-xs mb-1.5">
-              <span className="font-bold text-slate-700">
+              <span className="font-bold text-slate-700 dark:text-slate-200">
                 Principal Display Panel (PDP) Surface Area:
               </span>
-              <span className="font-mono font-bold text-brand-700 bg-brand-50 px-2 py-0.5 rounded border border-brand-200">
+              <span className="font-mono font-bold text-brand-700 dark:text-brand-300 bg-brand-50 dark:bg-brand-950/60 px-2 py-0.5 rounded border border-brand-200 dark:border-brand-800">
                 {pdpArea} cm²
               </span>
             </div>
@@ -425,9 +425,9 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
               step="10"
               value={pdpArea}
               onChange={(e) => setPdpArea(Number(e.target.value))}
-              className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-600"
+              className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-600"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+            <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-400 mt-1">
               <span>Small pouch (≤50 cm²)</span>
               <span>Medium box (100–500 cm²)</span>
               <span>Bulk pack (500–2500 cm²)</span>
@@ -443,8 +443,8 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
             {/* Live Voice-to-Text Input */}
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                  <Mic className="w-3.5 h-3.5 text-brand-600" />
+                <label className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <Mic className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
                   <span>Voice Observation Dictation</span>
                 </label>
                 <button
@@ -453,7 +453,7 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
                   className={`text-xs px-2 py-1 rounded-md font-bold transition flex items-center gap-1 ${
                     isRecording
                       ? 'bg-rose-600 text-white animate-pulse'
-                      : 'bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200'
+                      : 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-800'
                   }`}
                 >
                   {isRecording ? <MicOff className="w-3 h-3" /> : <Mic className="w-3 h-3" />}
@@ -466,14 +466,16 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
                 onChange={(e) => setVoiceText(e.target.value)}
                 placeholder={isRecording ? 'Listening in real-time... speak observations...' : 'Voice notes dictate here, or type observations...'}
                 className={`w-full text-xs p-2.5 rounded-xl border focus:ring-2 focus:ring-brand-500 outline-none resize-none transition ${
-                  isRecording ? 'border-rose-400 bg-rose-50/30' : 'border-slate-200'
+                  isRecording 
+                    ? 'border-rose-400 bg-rose-50/30 dark:bg-rose-950/30' 
+                    : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500'
                 }`}
               />
             </div>
 
             {/* Product Text Description & Claims */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 Product Declarations, Claims & Ingredients
               </label>
               <textarea
@@ -481,26 +483,26 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
                 value={textDescription}
                 onChange={(e) => setTextDescription(e.target.value)}
                 placeholder="e.g. Brand Name, Net Qty 500g, MRP ₹ 95, Mfd 08/2026, Ingredients list, FSSAI lic 14 digits..."
-                className="w-full text-xs p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 outline-none resize-none"
+                className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:ring-2 focus:ring-brand-500 outline-none resize-none"
               />
             </div>
 
             {/* Document Spec Text Preview if Uploaded */}
             {documentText && (
-              <div className="p-2.5 bg-emerald-50 rounded-xl border border-emerald-200 text-xs">
-                <div className="flex items-center justify-between font-bold text-emerald-800 text-[11px] mb-1">
+              <div className="p-2.5 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl border border-emerald-200 dark:border-emerald-800/60 text-xs">
+                <div className="flex items-center justify-between font-bold text-emerald-800 dark:text-emerald-300 text-[11px] mb-1">
                   <span className="flex items-center gap-1">
                     <FileText className="w-3.5 h-3.5" /> Attached Spec Sheet
                   </span>
-                  <button onClick={() => setDocumentText('')} className="text-emerald-600 hover:text-emerald-800">Clear</button>
+                  <button onClick={() => setDocumentText('')} className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-200">Clear</button>
                 </div>
-                <p className="text-[10px] text-emerald-700 line-clamp-2">{documentText}</p>
+                <p className="text-[10px] text-emerald-700 dark:text-emerald-300/90 line-clamp-2">{documentText}</p>
               </div>
             )}
 
             {/* Barcode / QR Code Quick Entry */}
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
                 EAN-13 Barcode / QR Code Payload (Optional)
               </label>
               <input
@@ -508,7 +510,7 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
                 value={barcodeInput}
                 onChange={(e) => setBarcodeInput(e.target.value)}
                 placeholder="e.g. 8901030889123"
-                className="w-full text-xs p-2.5 rounded-xl border border-slate-200 font-mono focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full text-xs p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 font-mono focus:ring-2 focus:ring-brand-500 outline-none"
               />
             </div>
           </div>
@@ -532,7 +534,7 @@ export const CameraScanner: React.FC<CameraScannerProps> = ({ onStartAnalysis, i
                 </>
               )}
             </button>
-            <p className="text-[10px] text-slate-400 text-center mt-2">
+            <p className="text-[10px] text-slate-400 dark:text-slate-400 text-center mt-2">
               Analyzes MRP, font heights, USP, Net Qty tolerances, FSSAI 14-digit license, allergens & claims.
             </p>
           </div>

@@ -9,7 +9,9 @@ import {
   MapPin,
   FileText,
   ChevronRight,
-  LogOut
+  LogOut,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { LabelLensLogo } from '../common/LabelLensLogo';
 import { MobileBottomNav, MobileTab } from './MobileBottomNav';
@@ -21,6 +23,7 @@ import { ProductAuditReport } from '../../types/audit';
 import { LegalComplaint } from '../../types/complaint';
 import { UserProfile, AppSettings } from '../../types/user';
 import { useLanguage } from '../../context/LanguageContext';
+import { useTheme } from '../../context/ThemeContext';
 
 interface MobileAppViewProps {
   currentReport: ProductAuditReport | null;
@@ -64,6 +67,7 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
   onSignOut
 }) => {
   const { t, currentLanguageMeta } = useLanguage();
+  const { actualTheme, toggleTheme } = useTheme();
   const [activeTab, setActiveTab] = useState<MobileTab>('scan');
 
   const hasViolations = currentReport
@@ -75,41 +79,54 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
     : 0;
 
   return (
-    <div className="flex flex-col min-h-full bg-slate-50 text-slate-900">
+    <div className="flex flex-col min-h-full bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200">
       
       {/* Mobile Top App Bar */}
-      <header className="sticky top-0 z-30 bg-slate-900/95 text-white backdrop-blur-md px-4 py-3 border-b border-slate-800 shadow-sm flex items-center justify-between">
+      <header className="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white backdrop-blur-md px-4 py-3 border-b border-slate-200 dark:border-slate-800 shadow-xs flex items-center justify-between transition-colors duration-200">
         <div className="flex items-center gap-2.5">
           <LabelLensLogo className="w-7 h-7" />
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="font-black text-sm tracking-tight text-white">Label Lens AI</span>
-              <span className="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 font-mono font-bold text-[9px] rounded border border-emerald-500/30">
+              <span className="font-black text-sm tracking-tight text-slate-900 dark:text-white">Label Lens AI</span>
+              <span className="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-[9px] rounded border border-emerald-500/30">
                 APK
               </span>
             </div>
-            <p className="text-[10px] text-slate-400 -mt-0.5 truncate max-w-[170px]">
+            <p className="text-[10px] text-slate-500 dark:text-slate-400 -mt-0.5 truncate max-w-[170px]">
               {t('appSubtitle')}
             </p>
           </div>
         </div>
 
-        {/* Action icons (Language, Chat, Settings) */}
+        {/* Action icons (Language, Theme, Chat, Settings) */}
         <div className="flex items-center gap-1.5">
           {/* Language Switcher Pill */}
           <button
             onClick={onOpenLanguageSelector}
-            className="flex items-center gap-1 px-2 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700/80 transition active:scale-95 shadow-xs"
+            className="flex items-center gap-1 px-2 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition active:scale-95 shadow-xs"
             title="Switch Language"
           >
             <span className="text-xs">{currentLanguageMeta.flag}</span>
             <span className="text-[11px] font-bold">{currentLanguageMeta.nativeName}</span>
           </button>
 
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition active:scale-95 shadow-xs"
+            title={actualTheme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+          >
+            {actualTheme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400" />
+            ) : (
+              <Moon className="w-4 h-4 text-indigo-600" />
+            )}
+          </button>
+
           {/* AI Legal Chat Assistant */}
           <button
             onClick={onToggleChat}
-            className="p-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white shadow-sm transition active:scale-95"
+            className="p-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white shadow-xs transition active:scale-95"
             title="Legal AI Assistant"
           >
             <Sparkles className="w-4 h-4 text-amber-300" />
@@ -118,7 +135,7 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
           {/* Settings Modal */}
           <button
             onClick={onOpenSettings}
-            className="p-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition active:scale-95"
+            className="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 transition active:scale-95 shadow-xs"
             title="Settings"
           >
             <Settings className="w-4 h-4" />
@@ -271,32 +288,32 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
         {activeTab === 'profile' && (
           <div className="space-y-3 animate-in fade-in duration-200">
             {/* User Identity Card */}
-            <div className="p-4 bg-white rounded-3xl border border-slate-200 shadow-sm">
+            <div className="p-4 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors duration-200">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-600 to-indigo-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-brand-500/20">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-600 via-indigo-600 to-emerald-500 text-white flex items-center justify-center font-black text-lg shadow-md shadow-brand-500/20">
                   {userProfile.displayName ? userProfile.displayName.charAt(0) : 'U'}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-black text-slate-900 text-sm truncate">
+                  <div className="font-black text-slate-900 dark:text-white text-sm truncate">
                     {userProfile.displayName || 'Verified Citizen Complainant'}
                   </div>
-                  <div className="text-xs text-slate-500 truncate">{userProfile.email}</div>
-                  <span className="inline-block mt-1 px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold text-[10px] rounded-full uppercase">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 truncate">{userProfile.email}</div>
+                  <span className="inline-block mt-1 px-2 py-0.5 bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 font-bold text-[10px] rounded-full uppercase">
                     {userProfile.role || 'Citizen'} • {appSettings.aiProvider?.toUpperCase() || 'GEMINI'}
                   </span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-100">
+              <div className="grid grid-cols-2 gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <button
                   onClick={onOpenProfile}
-                  className="py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition"
+                  className="py-2 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold text-xs transition"
                 >
-                  Edit Complainant Details
+                  Edit Details
                 </button>
                 <button
                   onClick={onOpenAuthModal}
-                  className="py-2 px-3 rounded-xl bg-brand-50 hover:bg-brand-100 text-brand-700 font-bold text-xs border border-brand-200 transition"
+                  className="py-2 px-3 rounded-xl bg-brand-50 dark:bg-brand-950/40 hover:bg-brand-100 dark:hover:bg-brand-900/50 text-brand-700 dark:text-brand-300 font-bold text-xs border border-brand-200 dark:border-brand-800 transition"
                 >
                   Switch Account
                 </button>
@@ -305,7 +322,7 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
               {onSignOut && (
                 <button
                   onClick={onSignOut}
-                  className="w-full mt-3 py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 transition flex items-center justify-center gap-2"
+                  className="w-full mt-3 py-2 px-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-700 dark:text-rose-300 font-bold text-xs border border-rose-200 dark:border-rose-900/50 transition flex items-center justify-center gap-2"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Sign Out</span>
@@ -314,15 +331,36 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
             </div>
 
             {/* Quick System Hubs */}
-            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm divide-y divide-slate-100 text-xs">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm divide-y divide-slate-100 dark:divide-slate-800 text-xs transition-colors duration-200">
+              {/* Theme Mode Toggle Row */}
               <button
-                onClick={onOpenLanguageSelector}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 transition text-left"
+                onClick={toggleTheme}
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left"
               >
                 <div className="flex items-center gap-2.5">
-                  <Globe className="w-4 h-4 text-brand-600" />
+                  {actualTheme === 'dark' ? (
+                    <Sun className="w-4 h-4 text-amber-400" />
+                  ) : (
+                    <Moon className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  )}
                   <div>
-                    <div className="font-bold text-slate-800">Regional Indian Language</div>
+                    <div className="font-bold text-slate-800 dark:text-slate-200">Theme Appearance</div>
+                    <div className="text-slate-400 text-[11px] capitalize">Currently {actualTheme} mode (Tap to toggle)</div>
+                  </div>
+                </div>
+                <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                  {actualTheme === 'dark' ? 'Dark' : 'Light'}
+                </span>
+              </button>
+
+              <button
+                onClick={onOpenLanguageSelector}
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Globe className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                  <div>
+                    <div className="font-bold text-slate-800 dark:text-slate-200">Regional Indian Language</div>
                     <div className="text-slate-400 text-[11px]">{currentLanguageMeta.name} ({currentLanguageMeta.nativeName})</div>
                   </div>
                 </div>
@@ -331,12 +369,12 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
 
               <button
                 onClick={onOpenAdminPanel}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 transition text-left"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left"
               >
                 <div className="flex items-center gap-2.5">
-                  <FileText className="w-4 h-4 text-purple-600" />
+                  <FileText className="w-4 h-4 text-purple-600 dark:text-purple-400" />
                   <div>
-                    <div className="font-bold text-slate-800">Directorate Admin & Excel Reports</div>
+                    <div className="font-bold text-slate-800 dark:text-slate-200">Directorate Admin & Excel Reports</div>
                     <div className="text-slate-400 text-[11px]">Download multi-sheet audit workbooks</div>
                   </div>
                 </div>
@@ -345,12 +383,12 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
 
               <button
                 onClick={onOpenPermissionsModal}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 transition text-left"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left"
               >
                 <div className="flex items-center gap-2.5">
-                  <Settings className="w-4 h-4 text-amber-600" />
+                  <Settings className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                   <div>
-                    <div className="font-bold text-slate-800">Hardware & Permissions Hub</div>
+                    <div className="font-bold text-slate-800 dark:text-slate-200">Hardware & Permissions Hub</div>
                     <div className="text-slate-400 text-[11px]">Camera, Mic, GPS, Storage Access</div>
                   </div>
                 </div>
@@ -359,12 +397,12 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
 
               <button
                 onClick={onOpenPrivacyModal}
-                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 transition text-left"
+                className="w-full p-3.5 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/60 transition text-left"
               >
                 <div className="flex items-center gap-2.5">
-                  <ShieldAlert className="w-4 h-4 text-emerald-600" />
+                  <ShieldAlert className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <div>
-                    <div className="font-bold text-slate-800">Enterprise Privacy & Security Charter</div>
+                    <div className="font-bold text-slate-800 dark:text-slate-200">Enterprise Privacy & Security Charter</div>
                     <div className="text-slate-400 text-[11px]">Cloud Firestore & OAuth Protected</div>
                   </div>
                 </div>

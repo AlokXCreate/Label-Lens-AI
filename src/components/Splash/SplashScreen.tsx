@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Scale, ArrowRight, CheckCircle2, Lock } from 'lucide-react';
+import { LabelLensLogo } from '../common/LabelLensLogo';
 
 interface SplashScreenProps {
   onFinish: () => void;
@@ -104,22 +105,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({
           {/* Rotating Radar Ring */}
           <div className="absolute w-32 h-32 sm:w-40 sm:h-40 rounded-full border border-dashed border-emerald-500/40 animate-[spin_10s_linear_infinite]" />
 
-          {/* Central Glassmorphic Shield Housing */}
-          <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-tr from-slate-900/90 via-slate-800/90 to-slate-900/90 border-2 border-emerald-500/50 flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.35)] backdrop-blur-xl">
-            {/* SVG Shield Emblem */}
-            <svg
-              className="w-14 h-14 sm:w-18 sm:h-18 text-emerald-400 drop-shadow-[0_4px_12px_rgba(16,185,129,0.5)]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
-
+          {/* Central Glassmorphic Logo Housing */}
+          <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-tr from-slate-900/90 via-slate-800/90 to-slate-900/90 border-2 border-emerald-500/50 flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.35)] backdrop-blur-xl p-3">
+            <LabelLensLogo size="2xl" showText={false} />
             {/* Glowing Corner Accents */}
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full blur-[2px] animate-ping" />
           </div>
