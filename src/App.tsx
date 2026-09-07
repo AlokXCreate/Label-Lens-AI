@@ -6,6 +6,7 @@ import { ParameterList } from './components/Audit/ParameterList';
 import { ExportBar } from './components/Export/ExportBar';
 import { ComplaintDrawer } from './components/Complaint/ComplaintDrawer';
 import { LocationPromptModal } from './components/Complaint/LocationPromptModal';
+import { StatutoryComplaintBanner } from './components/Complaint/StatutoryComplaintBanner';
 import { ChatAssistant } from './components/Chat/ChatAssistant';
 import { QuickCallModal } from './components/Authority/QuickCallModal';
 import { EnforcementOfficeMap } from './components/Map/EnforcementOfficeMap';
@@ -91,6 +92,14 @@ export const App: React.FC = () => {
       unsubscribeAuth();
     };
   }, []);
+
+  // Automatically synchronize active legal complaint whenever report or user profile updates
+  useEffect(() => {
+    if (currentReport && userProfile) {
+      const initialComplaint = generateLegalComplaint(currentReport, userProfile, false);
+      setActiveComplaint(initialComplaint);
+    }
+  }, [currentReport, userProfile]);
 
   // Handler for Multimodal Analysis Trigger
   const handleStartAnalysis = async (input: {
@@ -317,7 +326,17 @@ export const App: React.FC = () => {
               <div className="space-y-6 animate-in fade-in duration-300">
                 
                 {/* Scorecard & Technical Metadata */}
-                <ScoreCard report={currentReport} />
+                <ScoreCard
+                  report={currentReport}
+                  onFileComplaint={handleInitiateComplaint}
+                />
+
+                {/* Prominent Statutory Breach Alert & One-Click Complaint Dispatch Banner */}
+                <StatutoryComplaintBanner
+                  report={currentReport}
+                  complaint={activeComplaint}
+                  onOpenComplaintDrawer={handleInitiateComplaint}
+                />
 
                 {/* 5-Point Parameter Evaluation Findings */}
                 <ParameterList

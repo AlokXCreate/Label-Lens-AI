@@ -1,14 +1,15 @@
 import React from 'react';
-import { AlertTriangle, XCircle, CheckCircle2, Scale, Layers } from 'lucide-react';
+import { AlertTriangle, XCircle, CheckCircle2, Scale, Layers, FileWarning } from 'lucide-react';
 import { ProductAuditReport } from '../../types/audit';
 import { getRequiredFontHeightMm } from '../../services/rulesEngine';
 import { useLanguage } from '../../context/LanguageContext';
 
 interface ScoreCardProps {
   report: ProductAuditReport;
+  onFileComplaint?: () => void;
 }
 
-export const ScoreCard: React.FC<ScoreCardProps> = ({ report }) => {
+export const ScoreCard: React.FC<ScoreCardProps> = ({ report, onFileComplaint }) => {
   const { t } = useLanguage();
   const reqFontHeight = getRequiredFontHeightMm(report.principal_display_panel_area_sq_cm);
 
@@ -41,7 +42,10 @@ export const ScoreCard: React.FC<ScoreCardProps> = ({ report }) => {
       ? '#f59e0b'
       : '#f43f5e';
 
-  const isViolative = report.compliance_score < 85;
+  const isViolative =
+    report.overall_status !== 'Compliant' ||
+    report.findings.some(f => f.status === 'Non-Compliant') ||
+    report.compliance_score < 95;
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-md p-5 sm:p-6 transition hover:shadow-lg transition-colors duration-200">
@@ -137,11 +141,23 @@ export const ScoreCard: React.FC<ScoreCardProps> = ({ report }) => {
             )}
           </span>
         </div>
-        <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase self-start sm:self-auto ${
-          isViolative ? 'bg-rose-200/60 dark:bg-rose-900/60 text-rose-800 dark:text-rose-200' : 'bg-emerald-200/60 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200'
-        }`}>
-          {isViolative ? 'Statutory Breach' : 'Fully Compliant'}
-        </span>
+        <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+          <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase ${
+            isViolative ? 'bg-rose-200/60 dark:bg-rose-900/60 text-rose-800 dark:text-rose-200' : 'bg-emerald-200/60 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200'
+          }`}>
+            {isViolative ? 'Statutory Breach' : 'Fully Compliant'}
+          </span>
+          {isViolative && onFileComplaint && (
+            <button
+              onClick={onFileComplaint}
+              className="px-2.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-[11px] shadow-xs flex items-center gap-1 transition active:scale-95 cursor-pointer"
+              title="Open Official Statutory Complaint Dossier"
+            >
+              <FileWarning className="w-3.5 h-3.5" />
+              <span>File Complaint</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Summary Narrative */}

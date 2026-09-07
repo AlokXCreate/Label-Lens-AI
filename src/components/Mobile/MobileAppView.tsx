@@ -19,6 +19,7 @@ import { CameraScanner } from '../Scanner/CameraScanner';
 import { ScoreCard } from '../Audit/ScoreCard';
 import { ParameterList } from '../Audit/ParameterList';
 import { ExportBar } from '../Export/ExportBar';
+import { StatutoryComplaintBanner } from '../Complaint/StatutoryComplaintBanner';
 import { ProductAuditReport } from '../../types/audit';
 import { LegalComplaint } from '../../types/complaint';
 import { UserProfile, AppSettings } from '../../types/user';
@@ -158,23 +159,56 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
             />
 
             {currentReport && (
-              <div className="p-3.5 bg-gradient-to-r from-indigo-900 to-slate-900 text-white rounded-2xl border border-indigo-700/50 shadow-md flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono text-indigo-300 uppercase tracking-wider block">
-                    Active Audit Result Ready
-                  </span>
-                  <div className="font-extrabold text-xs text-white">
-                    {currentReport.product_name} ({currentReport.compliance_score}/100)
+              currentReport.compliance_score < 90 || currentReport.findings.some(f => f.status === 'Non-Compliant') ? (
+                <div className="p-4 bg-gradient-to-r from-rose-950/90 via-slate-900 to-slate-900 text-white rounded-3xl border border-rose-500/50 shadow-lg shadow-rose-950/40 flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold text-rose-400 uppercase tracking-wider bg-rose-950/80 px-2 py-0.5 rounded-full border border-rose-800/60">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping" />
+                      Statutory Breaches Identified
+                    </span>
+                    <span className="text-xs font-mono font-bold text-rose-300">
+                      Score: {currentReport.compliance_score}/100
+                    </span>
+                  </div>
+                  <div className="font-extrabold text-sm text-white">
+                    {currentReport.brand_name} - {currentReport.product_name}
+                  </div>
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      onClick={onInitiateComplaint}
+                      className="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-rose-600/30 active:scale-95 transition cursor-pointer"
+                    >
+                      <FileWarning className="w-4 h-4" />
+                      <span>File Statutory Complaint</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('audit')}
+                      className="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center gap-1 active:scale-95 transition"
+                    >
+                      <span>Findings</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
                   </div>
                 </div>
-                <button
-                  onClick={() => setActiveTab('audit')}
-                  className="px-3 py-1.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs flex items-center gap-1 shadow-sm transition active:scale-95 shrink-0"
-                >
-                  <span>View Findings</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
+              ) : (
+                <div className="p-3.5 bg-gradient-to-r from-emerald-950/80 via-slate-900 to-slate-900 text-white rounded-2xl border border-emerald-500/50 shadow-md flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase tracking-wider block">
+                      Fully Compliant Dossier
+                    </span>
+                    <div className="font-extrabold text-xs text-white">
+                      {currentReport.product_name} ({currentReport.compliance_score}/100)
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setActiveTab('audit')}
+                    className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1 shadow-sm transition active:scale-95 shrink-0"
+                  >
+                    <span>View Findings</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              )
             )}
           </div>
         )}
@@ -184,7 +218,15 @@ export const MobileAppView: React.FC<MobileAppViewProps> = ({
           <div className="space-y-4 animate-in fade-in duration-200">
             {currentReport ? (
               <>
-                <ScoreCard report={currentReport} />
+                <ScoreCard
+                  report={currentReport}
+                  onFileComplaint={onInitiateComplaint}
+                />
+                <StatutoryComplaintBanner
+                  report={currentReport}
+                  complaint={activeComplaint}
+                  onOpenComplaintDrawer={onInitiateComplaint}
+                />
                 <ParameterList
                   findings={currentReport.findings}
                   onOpenComplaintDrawer={onInitiateComplaint}

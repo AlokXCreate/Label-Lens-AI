@@ -94,10 +94,11 @@ export const ParameterList: React.FC<ParameterListProps> = ({ findings, onOpenCo
           {violationCount > 0 && (
             <button
               onClick={onOpenComplaintDrawer}
-              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white font-bold text-xs shadow-md shadow-rose-500/25 flex items-center gap-1.5 transition active:scale-95 animate-pulse"
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-700 hover:to-red-700 text-white font-black text-xs shadow-md shadow-rose-500/30 flex items-center gap-1.5 transition active:scale-95 cursor-pointer ring-2 ring-rose-500/20"
+              title="File official statutory complaint for detected non-compliances"
             >
               <FileWarning className="w-4 h-4" />
-              <span>{t('draftComplaint')} ({violationCount})</span>
+              <span>File Statutory Complaint ({violationCount})</span>
             </button>
           )}
         </div>
